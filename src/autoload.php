@@ -18,6 +18,7 @@ $loader->registerNamespaces(array(
     'Doctrine\\DBAL'                 => $vendorDir.'/doctrine-dbal/lib',
     'Doctrine'                       => $vendorDir.'/doctrine/lib',
     'Zend'                           => $vendorDir.'/zend/library',
+    'Expences'                       => __DIR__.'/Application/ExpencesBundle/Lib/expences/lib/',
 ));
 $loader->registerPrefixes(array(
     'Swift_'           => $vendorDir.'/swiftmailer/lib/classes',

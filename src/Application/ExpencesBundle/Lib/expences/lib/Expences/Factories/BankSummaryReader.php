@@ -1,5 +1,7 @@
 <?php
-namespace expences\factories;
+namespace Expences\Factories;
+use \Expences\Reader\Mbank\Credit;
+use \Expences\Reader\Mbank\CurrentAccount;
 
 /**
  * Bank Summary Reader factory
@@ -26,9 +28,9 @@ class BankSummaryReader
       case "mbank":
           switch ($type) {
             case "credit":
-              return new \expences\reader\mbank\Credit();
+              return new Credit();
             case "currentAccount":
-              return new \expences\reader\mbank\CurrentAccount();
+              return new CurrentAccount();
             default:
               throw new \InvalidArgumentException(sprintf("No class for mbank '%s' account type", $type), 1);
           }

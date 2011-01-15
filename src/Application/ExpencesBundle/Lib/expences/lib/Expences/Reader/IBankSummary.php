@@ -1,8 +1,8 @@
 <?php
-namespace expences\configuration;
+namespace Expences\Reader;
 
 /**
- * IConfiguration 
+ * IBankSummary 
  * 
  * @package default
  * @version $id$
@@ -10,6 +10,7 @@ namespace expences\configuration;
  * @author Wojciech Sznapka <wojciech@sznapka.pl> 
  * @license 
  */
-interface IConfiguration
+interface IBankSummary
 {
+  public function readFiles($directory);
 }

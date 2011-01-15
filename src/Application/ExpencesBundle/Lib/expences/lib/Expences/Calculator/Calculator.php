@@ -1,16 +1,16 @@
 <?php
-namespace expences\reader;
+namespace Expences\Calculator;
 
 /**
- * IBankSummary 
+ * Calculator 
  * 
+ * @abstract
  * @package default
  * @version $id$
  * @copyright 
  * @author Wojciech Sznapka <wojciech@sznapka.pl> 
  * @license 
  */
-interface IBankSummary
+abstract class Calculator
 {
-  public function readFiles($directory);
 }

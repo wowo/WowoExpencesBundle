@@ -1,5 +1,5 @@
 <?php
-namespace expences\entities;
+namespace Expences\Entities;
 
 /**
  * Bank operation 
@@ -18,6 +18,17 @@ class Operation
   public $description;
   public $priceOriginalCurrency;
   public $pricePln;
+
+  /**
+   * __toString 
+   * 
+   * @access public
+   * @return void
+   */
+  public function __toString()
+  {
+    return sprintf("%s  %5.2f\t%-55s  %-40s", $this->dateOperation, $this->pricePln, $this->type, $this->description);
+  }
 
   /**
    * Cleans up object (formats it values)

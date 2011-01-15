@@ -1,5 +1,5 @@
 <?php
-namespace expences\calculator;
+namespace Expences\Calculator;
 
 /**
  * Calculates montly expences, and avarage

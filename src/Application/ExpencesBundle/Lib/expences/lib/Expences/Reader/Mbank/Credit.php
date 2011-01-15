@@ -1,5 +1,8 @@
 <?php
-namespace expences\reader\mbank;
+namespace Expences\Reader\Mbank;
+use Expences\Reader\BankSummary;
+use Expences\Reader\IBankSummary;
+use Expences\Entities\Operation;
 
 /**
  * Reads mbank credit card summaries
@@ -10,7 +13,7 @@ namespace expences\reader\mbank;
  * @author Wojciech Sznapka <wojciech@sznapka.pl> 
  * @license 
  */
-class Credit extends \expences\reader\BankSummary implements \expences\reader\IBankSummary
+class Credit extends BankSummary implements IBankSummary
 {
   /**
    * read files
@@ -42,7 +45,7 @@ class Credit extends \expences\reader\BankSummary implements \expences\reader\IB
     $xml->registerXPathNamespace("ns", "http://www.w3.org/1999/xhtml");
     $result = $xml->xpath("//ns:tr/ns:td[position()=1 and text()>=1]/..");
     foreach ($result as $sxe) {
-      $operation = new \expences\entities\Operation();
+      $operation = new Operation();
       $dates = explode("\n", (string)$sxe->td[1]);
       $operation->dateOperation = $dates[0];
       $operation->datePosting = $dates[1];

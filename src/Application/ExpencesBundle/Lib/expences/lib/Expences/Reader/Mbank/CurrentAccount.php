@@ -1,5 +1,7 @@
 <?php
 namespace expences\reader\mbank;
+use Expences\Reader\BankSummary;
+use Expences\Reader\IBankSummary;
 
 /**
  * Represents mBank current account monthly summary
@@ -12,7 +14,7 @@ namespace expences\reader\mbank;
  * @author Wojciech Sznapka <wojciech@sznapka.pl> 
  * @license 
  */
-class CurrentAccount extends \expences\reader\BankSummary implements \expences\reader\IBankSummary
+class CurrentAccount extends BankSummary implements IBankSummary
 {
   /**
    * readFiles 
