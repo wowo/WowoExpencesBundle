@@ -18,5 +18,6 @@ twig.config:
 
 doctrine_odm.mongodb:
   default_database: expences
+  auto_generate_proxy_classes: true
   mappings:
     ExpencesBundle: {type: annotation}

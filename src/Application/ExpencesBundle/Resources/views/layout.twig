@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>{% block title %}Expences analyzer{% endblock %}</title>
+  </head>
+  <body>
+    {% block body %}
+      <div id="top">
+        {% block header %}
+          <div id="logo"><h1>Expences analyzer</h1></div>
+        {% endblock %}
+      </div>
+      <div id="middle">{% block content '' %}</div>
+      <div id="bottom">{% block footer %}Made by: <a href="http://sznapka.pl">Sznapka.pl</a>{% endblock %}</div>
+    {% endblock %}
+  </body>
+</html>
