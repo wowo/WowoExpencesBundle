@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Expences\Runner\Runner;
+use Application\ExpencesBundle\Runner\Runner;
 
 class ImportOperationsCommand extends Command
 {
@@ -32,11 +32,12 @@ class ImportOperationsCommand extends Command
         throw new \InvalidArgumentException("Please provide dir!");
       }
 
-      $runner = new Runner($dir, $input->getOption("bank"), $input->getOption("type"));
+      $runner = new Runner($dir, $input->getOption("bank"), $input->getOption("type"), $this->application->getKernel()->getContainer());
       $operations = $runner->run();
       $output->writeLn($operations);
     } catch (\Exception $e) {
-      $output->writeLn(sprintf("<error>Fatal error occured (%s): %s</error>", get_class($e), $e->getMessage()));
+      throw $e;
+      $output->writeLn(sprintf("Fatal error occured <error>(%s): %s</error>", get_class($e), $e->getMessage()));
     }
   }
 }

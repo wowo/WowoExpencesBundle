@@ -1,6 +1,9 @@
 <?php
-namespace Expences\Runner;
-use Expences\Factories\BankSummaryReader;
+namespace Application\ExpencesBundle\Runner;
+use Application\ExpencesBundle\Factories\BankSummaryReader;
+use Application\ExpencesBundle\Importer\IImporter;
+use Application\ExpencesBundle\Importer\Mongo;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Runner object, which is kind of controlloer in fact
@@ -16,6 +19,7 @@ class Runner
   protected $_directory;
   protected $_bank;
   protected $_type;
+  protected $_importer;
 
   /**
    * __construct 
@@ -23,11 +27,12 @@ class Runner
    * @access public
    * @return void
    */
-  public function __construct($directory, $bank, $type)
+  public function __construct($directory, $bank, $type, ContainerInterface $di, IImporter $importer = null)
   {
     $this->_directory = $directory;
     $this->_bank = $bank;
     $this->_type = $type;
+    $this->_importer = ($importer == null) ? new Mongo($di->get('doctrine.odm.mongodb.document_manager')) : $importer;
   }
 
   /**
@@ -41,6 +46,7 @@ class Runner
     $factory = new BankSummaryReader();
     $reader  = $factory->getBankSummaryReader($this->_bank, $this->_type);
     $result  = $reader->readFiles($this->_directory);
+    $this->_importer->import($result);
     return $result;
   }
 }

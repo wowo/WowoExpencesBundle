@@ -1,5 +1,5 @@
 <?php
-namespace Expences\Reader;
+namespace Application\ExpencesBundle\Reader;
 
 /**
  * BankSummary 

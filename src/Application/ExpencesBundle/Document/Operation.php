@@ -1,9 +1,10 @@
 <?php
-namespace Expences\Entities;
+namespace Application\ExpencesBundle\Document;
 
 /**
  * Bank operation 
  * 
+ * @mongodb:Document(collection="operations")
  * @package default
  * @version $id$
  * @copyright 
@@ -12,18 +13,40 @@ namespace Expences\Entities;
  */
 class Operation
 {
+  /**
+   * @mongodb:Id
+   */
+  public $id;
+  /**
+   * x@mongodb:Date
+   */
   public $dateOperation;
+  /**
+   * x@mongodb:Date
+   */
   public $datePosting;
+  /**
+   * @mongodb:String
+   */
   public $type;
+  /**
+   * @mongodb:String
+   */
   public $description;
+  /**
+   * x@mongodb:Float
+   */
   public $priceOriginalCurrency;
+  /**
+   * x@mongodb:Float
+   */
   public $pricePln;
 
   /**
-   * __toString 
+   * Converts object to string
    * 
    * @access public
-   * @return void
+   * @return string
    */
   public function __toString()
   {

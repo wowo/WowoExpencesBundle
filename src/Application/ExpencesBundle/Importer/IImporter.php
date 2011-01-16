@@ -1,8 +1,8 @@
 <?php
-namespace Expences\Reader;
+namespace Application\ExpencesBundle\Importer;
 
 /**
- * IBankSummary 
+ * IImporter 
  * 
  * @package default
  * @version $id$
@@ -10,7 +10,7 @@ namespace Expences\Reader;
  * @author Wojciech Sznapka <wojciech@sznapka.pl> 
  * @license 
  */
-interface IBankSummary
+interface IImporter
 {
-  public function readFiles($directory);
+  public function import(array $operations);
 }

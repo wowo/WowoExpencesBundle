@@ -1,8 +1,8 @@
 <?php
-namespace Expences\Reader\Mbank;
-use Expences\Reader\BankSummary;
-use Expences\Reader\IBankSummary;
-use Expences\Entities\Operation;
+namespace Application\ExpencesBundle\Reader\Mbank;
+use Application\ExpencesBundle\Reader\BankSummary;
+use Application\ExpencesBundle\Reader\IBankSummary;
+use Application\ExpencesBundle\Document\Operation;
 
 /**
  * Reads mbank credit card summaries

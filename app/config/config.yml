@@ -15,21 +15,8 @@ twig.config:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
 
-## Doctrine Configuration
-#doctrine.dbal:
-#    dbname:   xxxxxxxx
-#    user:     xxxxxxxx
-#    password: ~
-#doctrine.orm:
-#    auto_generate_proxy_classes: %kernel.debug%
-#    mappings:
-#        HelloBundle: ~
 
-## Swiftmailer Configuration
-#swiftmailer.config:
-#    transport:  smtp
-#    encryption: ssl
-#    auth_mode:  login
-#    host:       smtp.gmail.com
-#    username:   xxxxxxxx
-#    password:   xxxxxxxx
+doctrine_odm.mongodb:
+  default_database: expences
+  mappings:
+    ExpencesBundle: {type: annotation}

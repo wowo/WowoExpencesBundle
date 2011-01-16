@@ -1,7 +1,7 @@
 <?php
-namespace Expences\Factories;
-use \Expences\Reader\Mbank\Credit;
-use \Expences\Reader\Mbank\CurrentAccount;
+namespace Application\ExpencesBundle\Factories;
+use Application\ExpencesBundle\Reader\Mbank\Credit;
+use Application\ExpencesBundle\Reader\Mbank\CurrentAccount;
 
 /**
  * Bank Summary Reader factory
