@@ -1,0 +1,30 @@
+{% extends "ExpencesBundle::layout.twig.html" %}
+
+{% block content%}
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th colspan="5">Total operations count: {{ operations|length }}</th>
+    </tr>
+  </tfoot>
+  <tbody>
+    {% for operation in operations %}
+      <tr>
+        <td>{{ operation.dateOperation }}</td>
+        <td>{{ operation.type }}</td>
+        <td>{{ operation.description }}</td>
+        <td>{{ operation.pricePln }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

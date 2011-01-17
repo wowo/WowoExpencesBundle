@@ -23,8 +23,8 @@ class OperationsController extends Controller
   public function indexAction()
   {
     $dm = $this->get('doctrine.odm.mongodb.document_manager');
-    $query = $dm->createQueryBuilder('Application\ExpencesBundle\Document\Operation')->hydrate(false);
+    $query = $dm->createQueryBuilder('Application\ExpencesBundle\Document\Operation');
     $operations = $query->getQuery()->execute();
-    return $this->render('ExpencesBundle:Operations:index.twig', array("operations" => $operations));
+    return $this->render('ExpencesBundle:Operations:index.twig.html', array("operations" => $operations));
   }
 }
