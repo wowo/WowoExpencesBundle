@@ -1,7 +1,16 @@
 {% extends "ExpencesBundle::layout.twig.html" %}
 
+{% block page_title %}<h2>Operations</h2>{% endblock %}
+
 {% block content%}
-<table>
+<table cellspacing="0">
+  <colgroup>
+    <col width="10%" />
+    <col width="30%" />
+    <col width="30%" />
+    <col width="10%" />
+    <col width="20%" />
+  </colgroup>
   <thead>
     <tr>
       <th>Date</th>
@@ -19,10 +28,11 @@
   <tbody>
     {% for operation in operations %}
       <tr>
-        <td>{{ operation.dateOperation }}</td>
-        <td>{{ operation.type }}</td>
-        <td>{{ operation.description }}</td>
-        <td>{{ operation.pricePln }}</td>
+        <td>{{ operation.dateOperation|date("Y-m-d") }}</td>
+        <td>{{ operation.type|lower }}</td>
+        <td>{{ operation.description|lower }}</td>
+        <td><a href="/">{{ operation.pricePln }}</a></td>
+        <td></td>
       </tr>
     {% endfor %}
   </tbody>

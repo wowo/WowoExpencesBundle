@@ -1,0 +1,24 @@
+body {font-family: "Trebuchet MS", serif; font-size: 10pt; background: #ebebeb; padding: 10px 20px 20px;}
+h1, #bottom {font-family: Orbitron, "Trebuchet MS", serif;}
+#middle {border: 1px solid #b9b9b9; background: #ffffff;}
+#page_title {border-bottom: 1px solid #b9b9b9; padding: 0 30px;}
+#content {padding: 30px;}
+#bottom {margin: 20px 0 0 0; text-align: center; font-size: 9pt; letter-spacing: 1.5pt;}
+
+table {border: 1px solid #b9b9b9; border-collapse:collapse; margin-top: 10px;}
+table tr {border-bottom: 1px solid #b9b9b9;}
+thead, tfoot {background: #d9d7d8;}
+thead th {padding: 10px; text-transform: uppercase; text-align: left; color: #474548;}
+tbody td {padding: 3px 3px 3px 10px;}
+tbody tr:nth-child(even) {background: #ffffff;}
+tbody tr:nth-child(odd) {background: #f7f7f7;}
+
+a {color: #2fa4b6; text-decoration: none;}
+a:hover {text-decoration: underline;}
+
+#menu {background: #464646; list-style: none; padding: 0;}
+#menu li {display: inline-block; width: 130px; text-align: center; margin: 0;}
+#menu a {color: #ffffff; font-size: 11pt; font-weight: bold; text-transform: uppercase; display: block; height: 100%; width: 100%; padding: 15px 0;}
+#menu a.active {background: #30a4b1;}
+#menu a.active:hover {background: #30a4b1;}
+#menu a:hover {background: #a3d6dc; text-decoration: none;}

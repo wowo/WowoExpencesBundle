@@ -24,7 +24,7 @@ class OperationsController extends Controller
   {
     $dm = $this->get('doctrine.odm.mongodb.document_manager');
     $query = $dm->createQueryBuilder('Application\ExpencesBundle\Document\Operation');
-    $operations = $query->getQuery()->execute();
+    $operations = $query->sort("dateOperation", "desc")->getQuery()->execute();
     return $this->render('ExpencesBundle:Operations:index.twig.html', array("operations" => $operations));
   }
 }

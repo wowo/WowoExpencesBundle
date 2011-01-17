@@ -18,11 +18,11 @@ class Operation
    */
   public $id;
   /**
-   * x@mongodb:Date
+   * @mongodb:Date
    */
   public $dateOperation;
   /**
-   * x@mongodb:Date
+   * @mongodb:Date
    */
   public $datePosting;
   /**
@@ -34,11 +34,11 @@ class Operation
    */
   public $description;
   /**
-   * x@mongodb:Float
+   * @mongodb:Float
    */
   public $priceOriginalCurrency;
   /**
-   * x@mongodb:Float
+   * @mongodb:Float
    */
   public $pricePln;
 

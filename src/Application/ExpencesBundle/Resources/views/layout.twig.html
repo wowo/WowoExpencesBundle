@@ -3,6 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{% block title %}Expences analyzer{% endblock %}</title>
+    <link href="http://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css">
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     {% block body %}
@@ -11,7 +13,22 @@
           <div id="logo"><h1>Expences analyzer</h1></div>
         {% endblock %}
       </div>
-      <div id="middle">{% block content '' %}</div>
+      {% block menu %}
+        <ul id="menu">
+          <li><a href="#" class="active">Operations</a></li>
+          <li><a href="#">Upload</a></li>
+          <li><a href="#">Stats</a></li>
+          <li><a href="#">Options</a></li>
+        </ul>
+      {% endblock %}
+      <div id="middle">
+        <div id="page_title">
+          {% block page_title "Subpage" %}
+        </div>
+        <div id="content">
+          {% block content "" %}
+        </div>
+      </div>
       <div id="bottom">{% block footer %}Made by: <a href="http://sznapka.pl">Sznapka.pl</a>{% endblock %}</div>
     {% endblock %}
   </body>
