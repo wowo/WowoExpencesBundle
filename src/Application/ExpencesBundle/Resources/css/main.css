@@ -1,5 +1,5 @@
 body {font-family: "Trebuchet MS", serif; font-size: 10pt; background: #ebebeb; padding: 10px 20px 20px;}
-h1, #bottom {font-family: Orbitron, "Trebuchet MS", serif;}
+h1, #bottom {font-family: Orbitron, "Trebuchet MS", sans-serif;}
 #middle {border: 1px solid #b9b9b9; background: #ffffff;}
 #page_title {border-bottom: 1px solid #b9b9b9; padding: 0 30px;}
 #content {padding: 30px;}
@@ -22,3 +22,5 @@ a:hover {text-decoration: underline;}
 #menu a.active {background: #30a4b1;}
 #menu a.active:hover {background: #30a4b1;}
 #menu a:hover {background: #a3d6dc; text-decoration: none;}
+
+.link-tags {background: url('fugue-icons/icons/tags-label.png') no-repeat; padding-left: 20px;}
