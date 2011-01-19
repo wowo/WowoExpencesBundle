@@ -3,38 +3,39 @@
 {% block page_title %}<h2>Operations</h2>{% endblock %}
 
 {% block content%}
-<table cellspacing="0">
-  <colgroup>
-    <col width="10%" />
-    <col width="30%" />
-    <col width="30%" />
-    <col width="10%" />
-    <col width="20%" />
-  </colgroup>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Amount</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <th colspan="5">Total operations count: {{ operations|length }}</th>
-    </tr>
-  </tfoot>
-  <tbody>
-    {% for operation in operations %}
+  {% include "ExpencesBundle::filter.twig.html" %}
+  <table cellspacing="0">
+    <colgroup>
+      <col width="10%" />
+      <col width="30%" />
+      <col width="30%" />
+      <col width="10%" />
+      <col width="20%" />
+    </colgroup>
+    <thead>
       <tr>
-        <td>{{ operation.dateOperation|date("Y-m-d") }}</td>
-        <td>{{ operation.type|lower }}</td>
-        <td>{{ operation.description|lower }}</td>
-        <td>{{ operation.pricePln }}</td>
-        <td><a href="#" class="link-tags">tags</a></td>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Actions</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+    <tfoot>
+      <tr>
+        <th colspan="5">Total operations count: {{ operations|length }}</th>
+      </tr>
+    </tfoot>
+    <tbody>
+      {% for operation in operations %}
+        <tr>
+          <td>{{ operation.dateOperation|date("Y-m-d") }}</td>
+          <td>{{ operation.type|lower }}</td>
+          <td>{{ operation.description|lower }}</td>
+          <td>{{ operation.pricePln }}</td>
+          <td><a href="#" class="link-tags">tags</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}

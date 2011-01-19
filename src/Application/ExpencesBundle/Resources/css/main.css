@@ -1,5 +1,5 @@
 body {font-family: "Trebuchet MS", serif; font-size: 10pt; background: #ebebeb; padding: 10px 20px 20px;}
-h1, #bottom {font-family: Orbitron, "Trebuchet MS", sans-serif;}
+h1, #bottom {font-family: Orbitron, "Tahoma", sans-serif;}
 #middle {border: 1px solid #b9b9b9; background: #ffffff;}
 #page_title {border-bottom: 1px solid #b9b9b9; padding: 0 30px;}
 #content {padding: 30px;}
@@ -22,5 +22,10 @@ a:hover {text-decoration: underline;}
 #menu a.active {background: #30a4b1;}
 #menu a.active:hover {background: #30a4b1;}
 #menu a:hover {background: #a3d6dc; text-decoration: none;}
+
+fieldset {border: none; padding: 0;}
+label {color: #454744; text-transform: uppercase; font-weight: bold;}
+input {border: 1px solid #b9b9b9; padding: 10px; color: #6f7170; margin: 0 0 5px 0;}
+button {border: none; padding: 8px 20px; color: #ffffff; background: #f7941d; font-weight: bold; text-transform: uppercase; margin: 0;}
 
 .link-tags {background: url('fugue-icons/icons/tags-label.png') no-repeat; padding-left: 20px;}
