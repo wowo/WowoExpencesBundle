@@ -26,11 +26,15 @@ class OperationsController extends Controller
     $query = $dm->createQueryBuilder('Application\ExpencesBundle\Document\Operation');
     $query->sort("dateOperation", "desc");
     $search = $this->get("request")->query->get("query");
+    $tag    = $this->get("request")->query->get("tag");
     if ($search) {
-      $query->field("description")->equals("/.*" . $search . ".*/");
+      $query->field("description")->equals(new \MongoRegex(sprintf("/%s/i", $search)));
+    }
+    if ($tag) {
+      $query->field("tags")->in(array($tag));
     }
     $operations = $query->getQuery()->execute();
     
-    return $this->render('ExpencesBundle:Operations:index.twig.html', array("operations" => $operations));
+    return $this->render('ExpencesBundle:Operations:index.twig.html', array("operations" => $operations, "search" => $search, "tag" => $tag));
   }
 }

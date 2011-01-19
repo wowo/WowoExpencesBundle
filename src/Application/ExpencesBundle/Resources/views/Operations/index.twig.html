@@ -3,7 +3,7 @@
 {% block page_title %}<h2>Operations</h2>{% endblock %}
 
 {% block content%}
-  {% include "ExpencesBundle::filter.twig.html" %}
+  {% include "ExpencesBundle::filter.twig.html" with {"search": search} %}
   <table cellspacing="0">
     <colgroup>
       <col width="10%" />
