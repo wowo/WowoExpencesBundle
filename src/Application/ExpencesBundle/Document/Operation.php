@@ -41,6 +41,10 @@ class Operation
    * @mongodb:Float
    */
   public $pricePln;
+  /**
+   * @mongodb:Collection
+   */
+  public $tags;
 
   /**
    * Converts object to string

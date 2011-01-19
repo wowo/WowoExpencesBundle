@@ -1,0 +1,3 @@
+{% for tag in tags %}
+  <a href="?tag={{ tag }}" class="tag">{{ tag }}</a>{% if not loop.last %},{% endif %}
+{% endfor %}
