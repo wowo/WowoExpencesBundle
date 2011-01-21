@@ -33,7 +33,7 @@
           <td>{{ operation.dateOperation|date("Y-m-d") }}</td>
           <td>{{ operation.type|lower }}</td>
           <td>{{ operation.description|lower }}</td>
-          <td>{{ operation.pricePln }}</td>
+          <td class="right">{{ operation.getPricePlnFormatted() }}</td>
           <td>{% include "ExpencesBundle::tags.twig.html" with {"tags" : operation.tags} %}</td>
           <td><a href="#" class="link-tags">tags</a></td>
         </tr>

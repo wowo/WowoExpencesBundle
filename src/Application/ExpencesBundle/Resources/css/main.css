@@ -12,6 +12,7 @@ thead th {padding: 10px; text-transform: uppercase; text-align: left; color: #47
 tbody td {padding: 3px 3px 3px 10px;}
 tbody tr:nth-child(even) {background: #ffffff;}
 tbody tr:nth-child(odd) {background: #f7f7f7;}
+td.right {text-align: right; padding-right: 10px; white-space: nowrap}
 
 a {color: #2fa4b6; text-decoration: none;}
 a:hover {text-decoration: underline;}

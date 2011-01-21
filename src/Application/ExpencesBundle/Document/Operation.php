@@ -69,6 +69,11 @@ class Operation
     $this->_convertAmounts();
   }
 
+  public function getPricePlnFormatted()
+  {
+    return number_format($this->pricePln, 2, ",", " ") . " zł";
+  }
+
   /**
    * Removes new lines in every attribute
    * 

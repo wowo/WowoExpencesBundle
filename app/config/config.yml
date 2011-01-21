@@ -10,15 +10,15 @@ app.config:
         lifetime:       3600
         auto_start:     true
 
-# Twig Configuration
+
 twig.config:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
 
 
 doctrine_odm.mongodb:
-  default_database: expences
-  auto_generate_proxy_classes: true
   auto_generate_hydrator_classes: true
   mappings:
     ExpencesBundle: {type: annotation}
+  default_database: expences
+  server: "mongodb://exp:asdf@flame.mongohq.com:27088/expences"
