@@ -8,10 +8,10 @@
 {% block content %}
   <div id="flot_graph"></div>
   <script type="text/javascript">
-    flotData = [
+    flotData = [{data: [
       {% for row in rows %}
         [{{ row._id }}, {{ row.value }}],
       {% endfor %}
-    ];
+      ], lines: { show: true }, points: { show: true }}];
   </script>
 {% endblock %}

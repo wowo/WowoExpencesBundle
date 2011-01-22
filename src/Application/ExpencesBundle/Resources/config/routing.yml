@@ -2,6 +2,10 @@ operations:
   pattern:  /
   defaults: { _controller: ExpencesBundle:Operations:index}
 
+manage_tags:
+  pattern: /manage/tags/{operationId}
+  defaults: {_controller: ExpencesBundle:Operations:manageTags}
+
 stats_monthly:
   pattern: /stats/monthly
   defaults: {_controller: ExpencesBundle:Stats:monthly}
@@ -18,6 +22,6 @@ stats_yearly_graph:
   pattern: /stats/yearly/graph
   defaults: {_controller: ExpencesBundle:Stats:yearlyGraph}
 
-manage_tags:
-  pattern: /manage/tags/{operationId}
-  defaults: {_controller: ExpencesBundle:Operations:manageTags}
+stats_yearly_tags:
+  pattern: /stats/tags/graph
+  defaults: {_controller: ExpencesBundle:Stats:tagsGraph}

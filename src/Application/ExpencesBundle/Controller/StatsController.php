@@ -2,8 +2,33 @@
 namespace Application\ExpencesBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * StatsController 
+ * 
+ * @uses Controller
+ * @package default
+ * @version $id$
+ * @copyright 
+ * @author Wojciech Sznapka <wojciech@sznapka.pl> 
+ * @license 
+ */
 class StatsController extends Controller
 {
+  public function tagsGraphAction()
+  {
+    $rows = $this->_getOperationsForTagsSummary();
+    $tpl  = "ExpencesBundle:Stats:tagsGraph.twig.html";
+    $current = $this->get("request")->attributes->get("_route");
+    return $this->render($tpl, array("rows" => $rows, "title" => "Monthly summary", "current" => $current));
+  }
+
+  /**
+   * Menu in subtitle
+   * 
+   * @param mixed $current 
+   * @access public
+   * @return void
+   */
   public function menuAction($current)
   {
     $items = array(
@@ -155,5 +180,53 @@ class StatsController extends Controller
         }"
       );
     return $query->getQuery()->execute();
+  }
+
+  /**
+   * Gets operations sums for tags per months (runs map-reduce on mongodb)
+   * 
+   * @access protected
+   * @return array
+   */
+  protected function _getOperationsForTagsSummary()
+  {
+    $rows = array();
+    $dm = $this->get('doctrine.odm.mongodb.document_manager');
+    $query = $dm->createQueryBuilder('Application\ExpencesBundle\Document\Operation');
+
+    $query->sort("dateOperation", "asc")
+      ->map("
+        function() { 
+          if (this.tags && this.tags.length > 0) {
+            for (var i = 0; i < this.tags.length; i++) {
+              var month = (this.dateOperation.getMonth() + 1);
+              if (month < 10) {
+                month = '0' + month;
+              }
+              var key = this.dateOperation.getFullYear() + '-' + month;
+              emit ({tag: this.tags[i], month: key}, {amount: this.pricePln});
+            }
+          }
+        }"
+      )
+      ->reduce("
+        function (key, values) {
+          var sum = 0;
+          for (var i = 0; i < values.length; i++) {
+            sum += values[i].amount;
+          }
+          return {amount: sum};
+        }"
+      );
+
+    $result = array();
+    $tmp = $query->getQuery()->execute();
+    foreach ($tmp as $value) {
+      if (!isset($result[$value["_id"]["tag"]])) {
+        $result[$value["_id"]["tag"]] = array();
+      }
+      $result[$value["_id"]["tag"]][strtotime($value["_id"]["month"] . '-1')] = abs($value["value"]["amount"]);
+    }
+    return $result;
   }
 }

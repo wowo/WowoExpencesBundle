@@ -3,7 +3,7 @@ if (typeof(flotData) != "undefined") {
   var _tooltipId     = "flot_tooltip";
   $.plot(
       $("#" + _placeholderId), 
-      [{data: flotData, lines: { show: true }, points: { show: true }}],
+      flotData,
       {
         xaxis: {mode: "time"},
         grid: {clickable: true, hoverable: true}
