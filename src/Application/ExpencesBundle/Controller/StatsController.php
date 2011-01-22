@@ -14,12 +14,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class StatsController extends Controller
 {
+  /**
+   * Shows monthly tags expences graph
+   * 
+   * @access public
+   * @return void
+   */
   public function tagsGraphAction()
   {
     $rows = $this->_getOperationsForTagsSummary();
     $tpl  = "ExpencesBundle:Stats:tagsGraph.twig.html";
     $current = $this->get("request")->attributes->get("_route");
-    return $this->render($tpl, array("rows" => $rows, "title" => "Monthly summary", "current" => $current));
+    return $this->render($tpl, array("rows" => $rows, "title" => "Monthly tags summary", "current" => $current));
   }
 
   /**
@@ -34,6 +40,7 @@ class StatsController extends Controller
     $items = array(
       array("stats_monthly_graph", "Monthly graph"),
       array("stats_yearly_graph" , "Yearly graph"),
+      array("tags_monthly_graph" , "Monthly tags graph"),
       array("stats_monthly"      , "Monthly stats"),
       array("stats_yearly"       , "Yearly stats"),
     );

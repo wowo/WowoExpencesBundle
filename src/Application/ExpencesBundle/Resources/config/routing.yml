@@ -22,6 +22,6 @@ stats_yearly_graph:
   pattern: /stats/yearly/graph
   defaults: {_controller: ExpencesBundle:Stats:yearlyGraph}
 
-stats_yearly_tags:
+tags_monthly_graph:
   pattern: /stats/tags/graph
   defaults: {_controller: ExpencesBundle:Stats:tagsGraph}
