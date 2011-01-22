@@ -31,3 +31,5 @@ button {border: none; padding: 8px 20px; color: #ffffff; background: #f7941d; fo
 
 .link-tags {background: url('fugue-icons/icons/tags-label.png') no-repeat; padding-left: 20px;}
 .tag {background: url('fugue-icons/icons/tag-medium.png') no-repeat; padding-left: 15px;}
+
+#flot_graph {width: 1000px; height: 450px;}

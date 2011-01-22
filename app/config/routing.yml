@@ -1,6 +1,2 @@
-homepage:
-    pattern:  /
-    defaults: { _controller: ExpencesBundle:Operations:index }
-
-expences:
-    resource: ExpencesBundle/Resources/config/routing.yml
+_expences:
+  resource: ExpencesBundle/Resources/config/routing.yml
