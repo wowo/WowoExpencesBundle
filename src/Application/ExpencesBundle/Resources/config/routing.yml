@@ -17,3 +17,7 @@ stats_yearly:
 stats_yearly_graph:
   pattern: /stats/yearly/graph
   defaults: {_controller: ExpencesBundle:Stats:yearlyGraph}
+
+manage_tags:
+  pattern: /manage/tags/{operationId}
+  defaults: {_controller: ExpencesBundle:Operations:manageTags}

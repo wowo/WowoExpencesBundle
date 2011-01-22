@@ -54,7 +54,10 @@ class Operation
    */
   public function __toString()
   {
-    return sprintf("%s  %5.2f\t%-55s  %-40s", $this->dateOperation, $this->pricePln, $this->type, $this->description);
+    $date = ($this->dateOperation instanceof \DateTime)
+      ? $this->dateOperation->format("Y-m-d")
+      : $this->dateOperation;
+    return sprintf("%s  %5.2f %-40s", $date, $this->pricePln, strtolower($this->description));
   }
 
   /**
@@ -100,5 +103,16 @@ class Operation
     $to   = array("", ".");
     $this->priceOriginalCurrency = (float)str_replace($from, $to, $this->priceOriginalCurrency);
     $this->pricePln = (float)str_replace($from, $to, $this->pricePln);
+  }
+
+  /**
+   * getTags 
+   * 
+   * @access public
+   * @return array
+   */
+  public function getTags()
+  {
+    return ($this->tags != null) ? $this->tags : array();
   }
 }

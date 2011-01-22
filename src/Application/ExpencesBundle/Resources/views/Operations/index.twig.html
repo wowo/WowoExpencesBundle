@@ -35,7 +35,7 @@
           <td>{{ operation.description|lower }}</td>
           <td class="right">{{ operation.getPricePlnFormatted() }}</td>
           <td>{% include "ExpencesBundle::tags.twig.html" with {"tags" : operation.tags} %}</td>
-          <td><a href="#" class="link-tags">tags</a></td>
+          <td><a href="{{ path('manage_tags', {'operationId': operation.id}) }}" class="link-tags">tags</a></td>
         </tr>
       {% endfor %}
     </tbody>

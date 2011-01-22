@@ -1,5 +1,6 @@
 <?php
 namespace Application\ExpencesBundle\Controller;
+use Application\ExpencesBundle\Form\Operation as OperationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -15,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class OperationsController extends Controller
 {
   /**
-   * indexAction 
+   * Displays all operations
    * 
    * @access public
    * @return void
@@ -34,7 +35,31 @@ class OperationsController extends Controller
       $query->field("tags")->in(array($tag));
     }
     $operations = $query->getQuery()->execute();
-    
-    return $this->render('ExpencesBundle:Operations:index.twig.html', array("operations" => $operations, "search" => $search, "tag" => $tag));
+    $tpl = "ExpencesBundle:Operations:index.twig.html";
+    return $this->render($tpl, array("operations" => $operations, "search" => $search, "tag" => $tag));
+  }
+
+  /**
+   * Manages tags of given operation
+   * 
+   * @param mixed $operationId 
+   * @access public
+   * @return void
+   */
+  public function manageTagsAction($operationId)
+  {
+    $dm = $this->get('doctrine.odm.mongodb.document_manager');
+    $operation = $dm->find('Application\ExpencesBundle\Document\Operation', $operationId);
+    $form      = new OperationForm("operation", $operation, $this->get("validator"));
+    if ($this->get("request")->getMethod() == "POST") {
+        $form->bind($this->get("request")->request->get("operation"));
+        if ($form->isValid()) {
+          $form->process($operation, $dm);
+          return $this->redirect($this->generateUrl('operations'));
+        }
+    }
+
+    $tpl = "ExpencesBundle:Operations:manageTags.twig.html";
+    return $this->render($tpl, array("operation" => $operation, "form" => $form));
   }
 }
