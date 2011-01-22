@@ -1,4 +1,4 @@
-homepage:
+operations:
   pattern:  /
   defaults: { _controller: ExpencesBundle:Operations:index}
 

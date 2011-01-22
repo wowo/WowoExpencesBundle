@@ -16,9 +16,9 @@
       </div>
       {% block menu %}
         <ul id="menu">
-          <li><a href="#" class="active">Operations</a></li>
+          <li><a href="{{ path('operations') }}">Operations</a></li>
           <li><a href="#">Upload</a></li>
-          <li><a href="#">Stats</a></li>
+          <li><a href="{{ path('stats_monthly_graph') }}">Stats</a></li>
           <li><a href="#">Options</a></li>
         </ul>
       {% endblock %}

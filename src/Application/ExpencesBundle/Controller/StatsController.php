@@ -4,6 +4,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class StatsController extends Controller
 {
+  public function menuAction($current)
+  {
+    $items = array(
+      array("stats_monthly_graph", "Monthly graph"),
+      array("stats_yearly_graph" , "Yearly graph"),
+      array("stats_monthly"      , "Monthly stats"),
+      array("stats_yearly"       , "Yearly stats"),
+    );
+    foreach ($items as $key => $item) {
+      if ($item[0] == $current) {
+        unset($items[$key]);
+      }
+    }
+    return $this->render("ExpencesBundle:Stats:menu.twig.html", array("items" => $items));
+  }
   /**
    * Gets monthly summary of the operations
    * 
@@ -12,9 +27,11 @@ class StatsController extends Controller
    */
   public function monthlyAction()
   {
+    $this->get("request")->attributes->set("current", $this->get("request")->attributes->get("_route"));
     $rows = $this->_getOperationsSummary($this->_getMonthlyMapFunction());
     $tpl  = "ExpencesBundle:Stats:statsTable.twig.html";
-    return $this->render($tpl, array("rows" => $rows, "title" => "Monthly summary"));
+    $current = $this->get("request")->attributes->get("_route");
+    return $this->render($tpl, array("rows" => $rows, "title" => "Monthly summary", "current" => $current));
   }
 
   /**
@@ -28,7 +45,8 @@ class StatsController extends Controller
     $rows = $this->_getOperationsSummary($this->_getMonthlyMapFunction());
     $rows = $this->_prepareForGraph($rows);
     $tpl  = "ExpencesBundle:Stats:statsGraph.twig.html";
-    return $this->render($tpl, array("rows" => $rows, "title" => "Monthly expences graph"));
+    $current = $this->get("request")->attributes->get("_route");
+    return $this->render($tpl, array("rows" => $rows, "title" => "Monthly expences graph", "current" => $current));
   }
 
   /**
@@ -41,7 +59,8 @@ class StatsController extends Controller
   {
     $rows = $this->_getOperationsSummary($this->_getYearlyMapFunction());
     $tpl  = "ExpencesBundle:Stats:statsTable.twig.html";
-    return $this->render($tpl, array("rows" => $rows, "title" => "Yearly summary"));
+    $current = $this->get("request")->attributes->get("_route");
+    return $this->render($tpl, array("rows" => $rows, "title" => "Yearly summary", "current" => $current));
   }
 
   /**
@@ -55,7 +74,8 @@ class StatsController extends Controller
     $rows = $this->_getOperationsSummary($this->_getYearlyMapFunction());
     $rows = $this->_prepareForGraph($rows);
     $tpl  = "ExpencesBundle:Stats:statsGraph.twig.html";
-    return $this->render($tpl, array("rows" => $rows, "title" => "Yearly expences graph"));
+    $current = $this->get("request")->attributes->get("_route");
+    return $this->render($tpl, array("rows" => $rows, "title" => "Yearly expences graph", "current" => $current));
   }
 
   /**

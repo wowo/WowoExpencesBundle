@@ -1,6 +1,9 @@
 {% extends "ExpencesBundle::layout.twig.html" %}
 
-{% block page_title %}<h2>{{ title }}</h2>{% endblock %}
+{% block page_title %}
+  <h2>{{ title }}</h2>
+  {% render "ExpencesBundle:Stats:menu" with {'current': current} %}
+{% endblock %}
 
 {% block content %}
   <div id="flot_graph"></div>
