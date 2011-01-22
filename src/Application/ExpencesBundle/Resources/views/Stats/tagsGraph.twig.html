@@ -1,0 +1,21 @@
+{% extends "ExpencesBundle::layout.twig.html" %}
+
+{% block page_title %}
+  <h2>{{ title }}</h2>
+  {% render "ExpencesBundle:Stats:menu" with {'current': current} %}
+{% endblock %}
+
+{% block content %}
+  <div id="flot_graph"></div>
+  <script type="text/javascript">
+    flotData = [
+      {% for tag, tags in rows %}
+        {label: '{{ tag }}', data: [
+          {% for month, value in tags %}
+            [{{ month }} * 1000, {{ value }}],
+          {% endfor %}
+          ], lines: { show: true }, points: { show: true }},
+      {% endfor %}
+      ];
+  </script>
+{% endblock %}
