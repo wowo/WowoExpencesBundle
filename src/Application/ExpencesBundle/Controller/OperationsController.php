@@ -1,6 +1,8 @@
 <?php
 namespace Application\ExpencesBundle\Controller;
 use Application\ExpencesBundle\Form\Operation as OperationForm;
+use Application\ExpencesBundle\Form\OperationTag;
+use Application\ExpencesBundle\Document\Operation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -50,7 +52,7 @@ class OperationsController extends Controller
   {
     $dm = $this->get('doctrine.odm.mongodb.document_manager');
     $operation = $dm->find('Application\ExpencesBundle\Document\Operation', $operationId);
-    $form      = new OperationForm("operation", $operation, $this->get("validator"));
+    $form      = new OperationTag("operation", $operation, $this->get("validator"));
     if ($this->get("request")->getMethod() == "POST") {
         $form->bind($this->get("request")->request->get("operation"));
         if ($form->isValid()) {
@@ -61,5 +63,32 @@ class OperationsController extends Controller
 
     $tpl = "ExpencesBundle:Operations:manageTags.twig.html";
     return $this->render($tpl, array("operation" => $operation, "form" => $form));
+  }
+
+  /**
+   * newAction 
+   * 
+   * @access public
+   * @return void
+   */
+  public function newAction()
+  {
+    $operation = new Operation();
+    $operation->dateOperation = new \DateTime("now");
+    $form = new OperationForm("operation", $operation, $this->get("validator"));
+    if ($this->get("request")->getMethod() == "POST") {
+        $form->bind($this->get("request")->request->get("operation"));
+        if ($form->isValid()) {
+          $operation = $form->getData();
+          $operation->type = "Operacja wprowadzona przez użytkownika";
+          $dm = $this->get('doctrine.odm.mongodb.document_manager');
+          $dm->persist($operation);
+          $dm->flush();
+          return $this->redirect($this->generateUrl('operations'));
+        }
+    }
+
+    $tpl = "ExpencesBundle:Operations:new.twig.html";
+    return $this->render($tpl, array("form" => $form));
   }
 }

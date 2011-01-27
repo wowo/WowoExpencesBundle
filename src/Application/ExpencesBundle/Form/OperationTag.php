@@ -3,7 +3,6 @@ namespace Application\ExpencesBundle\Form;
 use Application\ExpencesBundle\Document\Operation as OperationDocument;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\TextField;
-use Symfony\Component\Form\DateField;
 use Symfony\Component\Form\CollectionField;
 use Symfony\Component\Validator\ValidatorInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -18,7 +17,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
  * @author Wojciech Sznapka <wojciech@sznapka.pl> 
  * @license 
  */
-class Operation extends Form
+class OperationTag extends Form
 {
   /**
    * __construct 
@@ -33,10 +32,7 @@ class Operation extends Form
   public function __construct($name, $data = null, ValidatorInterface $validator = null, array $options = array())
   {
     parent::__construct($name, $data, $validator, $options);
-    $this->add(new Textfield("description"));
-    $this->add(new Textfield("price"));
-    $this->add(new DateField("date"));
-    $this->add(new TextField("tags_values"));
+    $this->add(new CollectionField(new TextField("tags"), array("modifiable" => true)));
   }
 
   /**
@@ -60,4 +56,3 @@ class Operation extends Form
     $dm->flush();
   }
 }
-

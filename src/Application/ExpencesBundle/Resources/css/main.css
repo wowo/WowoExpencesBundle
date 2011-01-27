@@ -34,3 +34,6 @@ button {border: none; padding: 8px 20px; color: #ffffff; background: #f7941d; fo
 
 #flot_graph {width: 100%; height: 450px;}
 #flot_tooltip {position: absolute; border: 1px solid #ffdddd; padding: 2px; background: #ffeeee; opacity: 0.70;}
+
+#operation_new label {width: 120px; display: inline-block;}
+#operation_new div {margin: 5px;}

@@ -2,6 +2,10 @@ operations:
   pattern:  /
   defaults: { _controller: ExpencesBundle:Operations:index}
 
+operation_new:
+  pattern:  /new
+  defaults: { _controller: ExpencesBundle:Operations:new}
+
 manage_tags:
   pattern: /manage/tags/{operationId}
   defaults: {_controller: ExpencesBundle:Operations:manageTags}

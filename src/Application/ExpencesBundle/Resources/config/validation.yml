@@ -1,0 +1,8 @@
+Application\ExpencesBundle\Document\Operation:
+  properties:
+    dateOperation:
+      - DateTime: ~
+    pricePln:
+      - AssertType: numeric
+    tags:
+      - AssertType: array

@@ -26,6 +26,10 @@ class Operation
    */
   public $datePosting;
   /**
+   * @mongodb:DateTime
+   */
+  public $createdAt;
+  /**
    * @mongodb:String
    */
   public $type;
@@ -115,4 +119,37 @@ class Operation
   {
     return ($this->tags != null) ? $this->tags : array();
   }
+
+  public function getPrice()
+  {
+    return $this->pricePln;
+  }
+
+  public function setPrice($value)
+  {
+    $this->pricePln = $value;
+    $this->priceOriginalCurrency = $value;
+  }
+
+  public function getDate()
+  {
+    return $this->dateOperation;
+  }
+
+  public function setDate($value)
+  {
+    $this->dateOperation = $value;
+    $this->datePosting = new \DateTime("now");
+  }
+
+  public function getTagsValues()
+  {
+    return implode(",", (array)$this->tags);
+  }
+
+  public function setTagsValues($value)
+  {
+    $this->tags = explode(",", $value);
+  }
+    
 }
