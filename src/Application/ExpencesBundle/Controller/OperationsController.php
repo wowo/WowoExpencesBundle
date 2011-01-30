@@ -37,8 +37,10 @@ class OperationsController extends Controller
       $query->field("tags")->in(array($tag));
     }
     $operations = $query->getQuery()->execute();
-    $tpl = "ExpencesBundle:Operations:index.twig.html";
-    return $this->render($tpl, array("operations" => $operations, "search" => $search, "tag" => $tag));
+    return $this->render(
+      "ExpencesBundle:Operations:index.twig.html", 
+      array("operations" => $operations, "search" => $search, "tag" => $tag)
+    );
   }
 
   /**
@@ -61,8 +63,10 @@ class OperationsController extends Controller
         }
     }
 
-    $tpl = "ExpencesBundle:Operations:manageTags.twig.html";
-    return $this->render($tpl, array("operation" => $operation, "form" => $form));
+    return $this->render(
+      "ExpencesBundle:Operations:manageTags.twig.html",
+      array("operation" => $operation, "form" => $form)
+    );
   }
 
   /**
@@ -88,7 +92,9 @@ class OperationsController extends Controller
         }
     }
 
-    $tpl = "ExpencesBundle:Operations:new.twig.html";
-    return $this->render($tpl, array("form" => $form));
+    return $this->render(
+      "ExpencesBundle:Operations:new.twig.html",
+      array("form" => $form)
+    );
   }
 }

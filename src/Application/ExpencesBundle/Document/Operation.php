@@ -1,10 +1,11 @@
 <?php
 namespace Application\ExpencesBundle\Document;
+use Application\ExpencesBundle\Repository\OperationRepository;
 
 /**
  * Bank operation 
  * 
- * @mongodb:Document(collection="operations")
+ * @mongodb:Document(collection="operations",repositoryClass="Application\ExpencesBundle\Repository\OperationRepository")
  * @package default
  * @version $id$
  * @copyright 

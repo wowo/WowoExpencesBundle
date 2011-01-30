@@ -9,8 +9,24 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Application\ExpencesBundle\Runner\Runner;
 
+/**
+ * ImportOperationsCommand 
+ * 
+ * @uses Command
+ * @package default
+ * @version $id$
+ * @copyright 
+ * @author Wojciech Sznapka <wojciech@sznapka.pl> 
+ * @license 
+ */
 class ImportOperationsCommand extends Command
 {
+  /**
+   * configure 
+   * 
+   * @access protected
+   * @return void
+   */
   protected function configure()
   {
       parent::configure();
@@ -22,6 +38,14 @@ class ImportOperationsCommand extends Command
           ->addOption("type", "t", InputOption::VALUE_OPTIONAL, "type of reciept", "credit");
   }
 
+  /**
+   * execute 
+   * 
+   * @param InputInterface $input 
+   * @param OutputInterface $output 
+   * @access protected
+   * @return void
+   */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     try {
