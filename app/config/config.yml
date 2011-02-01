@@ -27,3 +27,17 @@ doctrine_odm.mongodb:
 webprofiler.config:
   toolbar: true
   intercept_redirects: false
+
+security.config:
+  providers:
+    default:
+      document: {class: ExpencesBundle:User, property: username}
+  encoders:
+    "Application\ExpencesBundle\Document\User": sha1
+  firewalls:
+    public:
+      pattern: /login
+      security: false
+    main:
+      form_login: true
+      pattern: /.*

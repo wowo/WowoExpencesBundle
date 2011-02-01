@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\ZendBundle\ZendBundle(),
             new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
             new Application\ExpencesBundle\ExpencesBundle(),
+            new Application\SecurityBundle\SecurityBundle(),
         );
 
         if ($this->isDebug()) {
