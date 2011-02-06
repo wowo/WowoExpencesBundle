@@ -50,6 +50,10 @@ class Operation
    * @mongodb:Collection
    */
   public $tags;
+  /**
+   * @mongodb:ReferenceOne(targetDocument="User")
+   */
+  public $user;
 
   /**
    * Converts object to string

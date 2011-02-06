@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class OperationsController extends Controller
 {
+  const REPO = "Application\ExpencesBundle\Document\Operation";
   /**
    * Displays all operations
    * 
@@ -25,18 +26,15 @@ class OperationsController extends Controller
    */
   public function indexAction()
   {
-    $dm = $this->get('doctrine.odm.mongodb.document_manager');
-    $query = $dm->createQueryBuilder('Application\ExpencesBundle\Document\Operation');
-    $query->sort("dateOperation", "desc");
+    $dm = $this->get("doctrine.odm.mongodb.document_manager");
     $search = $this->get("request")->query->get("query");
     $tag    = $this->get("request")->query->get("tag");
-    if ($search) {
-      $query->field("description")->equals(new \MongoRegex(sprintf("/%s/i", $search)));
+    $user   = $this->get('security.context')->getUser();
+    if ($user) {
+      $operations = $dm->getRepository(self::REPO)->getOperationsForUser($user, $tag, $search);
+    } else {
+      $operations = array();
     }
-    if ($tag) {
-      $query->field("tags")->in(array($tag));
-    }
-    $operations = $query->getQuery()->execute();
     return $this->render(
       "ExpencesBundle:Operations:index.twig.html", 
       array("operations" => $operations, "search" => $search, "tag" => $tag)

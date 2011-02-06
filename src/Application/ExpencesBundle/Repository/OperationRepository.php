@@ -1,9 +1,42 @@
 <?php
 namespace Application\ExpencesBundle\Repository;
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use Application\ExpencesBundle\Document\User;
 
+/**
+ * OperationRepository 
+ * 
+ * @uses DocumentRepository
+ * @package default
+ * @version $id$
+ * @copyright 
+ * @author Wojciech Sznapka <wojciech@sznapka.pl> 
+ * @license 
+ */
 class OperationRepository extends DocumentRepository
 {
+  /**
+   * getOperationsForUser 
+   * 
+   * @param User $user 
+   * @param mixed $tags 
+   * @param mixed $search 
+   * @access public
+   * @return void
+   */
+  public function getOperationsForUser(User $user, $tag = null, $search = null)
+  {
+    $query = $this->createQueryBuilder();
+    $query->field("user")->references($user);
+    $query->sort("dateOperation", "desc");
+    if ($search) {
+      $query->field("description")->equals(new \MongoRegex(sprintf("/%s/i", $search)));
+    }
+    if ($tag) {
+      $query->field("tags")->in(array($tag));
+    }
+    return $query->getQuery()->execute();
+  }
 
   /**
    * _getOperationsSummary 

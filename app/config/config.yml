@@ -18,6 +18,7 @@ twig.config:
 
 doctrine_odm.mongodb:
   auto_generate_hydrator_classes: true
+  auto_generate_proxy_classes: true
   mappings:
     ExpencesBundle: {type: annotation}
   default_database: expences
