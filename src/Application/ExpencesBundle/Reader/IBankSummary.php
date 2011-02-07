@@ -13,4 +13,5 @@ namespace Application\ExpencesBundle\Reader;
 interface IBankSummary
 {
   public function readFiles($directory);
+  public function getOperations($xmlString);
 }

@@ -2,7 +2,10 @@
 namespace Application\ExpencesBundle\Controller;
 use Application\ExpencesBundle\Form\Operation as OperationForm;
 use Application\ExpencesBundle\Form\OperationTag;
+use Application\ExpencesBundle\Form\Upload;
 use Application\ExpencesBundle\Document\Operation;
+use Application\ExpencesBundle\Factories\BankSummaryReader;
+use Application\ExpencesBundle\Importer\Mongo as MongoImporter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -93,6 +96,35 @@ class OperationsController extends Controller
 
     return $this->render(
       "ExpencesBundle:Operations:new.twig.html",
+      array("form" => $form)
+    );
+  }
+
+  /**
+   * uploadAction 
+   * 
+   * @access public
+   * @return void
+   */
+  public function uploadAction()
+  {
+    $form = new Upload("upload", array(), $this->get("validator"));
+    if ($this->get("request")->getMethod() == "POST") {
+      $post  = $this->get("request")->request->get("upload");
+      $files = $this->get("request")->files->get("upload");
+      $xmlString  = file_get_contents($files["file"]["file"]->getPath());
+      $types = explode("_", $post["type"]);
+
+      $factory = new BankSummaryReader();
+      $reader  = $factory->getBankSummaryReader($types[0], $types[1]);
+      $operations = $reader->getOperations($xmlString);
+      $importer = new MongoImporter($this->get("doctrine.odm.mongodb.document_manager"));
+      $importer->importFromUpload($operations, $this->get("security.context")->getUser(), $types[0], $types[1]);
+      return $this->redirect($this->generateUrl('operations'));
+    }
+
+    return $this->render(
+      "ExpencesBundle:Operations:upload.twig.html",
       array("form" => $form)
     );
   }

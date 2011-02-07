@@ -10,6 +10,10 @@ manage_tags:
   pattern: /manage/tags/{operationId}
   defaults: {_controller: ExpencesBundle:Operations:manageTags}
 
+upload:
+  pattern: /upload
+  defaults: {_controller: ExpencesBundle:Operations:upload}
+
 stats_monthly_graph:
   pattern: /stats/monthly/graph
   defaults: {_controller: ExpencesBundle:Stats:monthlyGraph}

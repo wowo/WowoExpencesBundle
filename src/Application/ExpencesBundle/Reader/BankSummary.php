@@ -23,11 +23,23 @@ abstract class BankSummary
       if ($file->isFile()) {
         $path = sprintf("%s/%s", $directory, (string)$file);
         $xmlString   = file_get_contents($path);
-        $repaired    = $this->_cleanXml($xmlString);
-        $xmls[$path] = $this->_getXml($repaired);
+        $xmls[$path] = $this->prepareXml($xmlString);
       }
     }
     return $xmls;
+  }
+
+  /**
+   * prepareXml 
+   * 
+   * @param mixed $xmlString 
+   * @access public
+   * @return void
+   */
+  protected function _prepareXml($xmlString)
+  {
+    $repaired    = $this->_cleanXml($xmlString);
+    return $this->_getXml($repaired);
   }
 
   /**

@@ -27,7 +27,7 @@ class Operation
    */
   public $datePosting;
   /**
-   * @mongodb:DateTime
+   * @mongodb:Date
    */
   public $createdAt;
   /**
@@ -54,6 +54,14 @@ class Operation
    * @mongodb:ReferenceOne(targetDocument="User")
    */
   public $user;
+  /**
+   * @mongodb:String
+   */
+  public $bank;
+  /**
+   * @mongodb:String
+   */
+  public $summaryType;
 
   /**
    * Converts object to string

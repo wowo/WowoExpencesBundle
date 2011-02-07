@@ -38,4 +38,19 @@ class Mongo implements IImporter
       $this->_dm->flush();
     }
   }
+
+  public function importFromUpload(array $operations, $user, $bank, $summaryType)
+  {
+    foreach ($operations as $operation) {
+      if (!($operation instanceof Operation)) {
+        throw new \InvalidArgumentException("Given operation object isn't an Operation instance");
+      }
+      $operation->createdAt = new \DateTime("now");
+      $operation->bank = $bank;
+      $operation->summaryType = $summaryType;
+      $operation->user = $user;
+      $this->_dm->persist($operation);
+    }
+    $this->_dm->flush();
+  }
 }

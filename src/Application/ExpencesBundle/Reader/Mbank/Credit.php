@@ -32,6 +32,12 @@ class Credit extends BankSummary implements IBankSummary
     return $result;
   }
 
+  public function getOperations($xmlString)
+  {
+    $xml = $this->_prepareXml($xmlString);
+    return $this->_getOperationsFromXml($xml);
+  }
+
   /**
    * _getOperationsFromXml 
    * 
