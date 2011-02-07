@@ -40,5 +40,8 @@ security.config:
       pattern: /login
       security: false
     main:
-      form_login: true
       pattern: /.*
+      logout: true
+      form_login:
+        always_use_default_target_path: true
+        default_target_path: /

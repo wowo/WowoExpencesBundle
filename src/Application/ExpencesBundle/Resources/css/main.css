@@ -17,6 +17,9 @@ td.right {text-align: right; padding-right: 10px; white-space: nowrap}
 a {color: #2fa4b6; text-decoration: none;}
 a:hover {text-decoration: underline;}
 
+#logo h1 {margin-top: 0;}
+#login {text-align: right; margin-right: 15px;}
+
 #menu {background: #464646; list-style: none; padding: 0;}
 #menu li {display: inline-block; width: 130px; text-align: center; margin: 0;}
 #menu a {color: #ffffff; font-size: 11pt; font-weight: bold; text-transform: uppercase; display: block; height: 100%; width: 100%; padding: 15px 0;}

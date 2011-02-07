@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class OperationsController extends Controller
 {
   const REPO = "Application\ExpencesBundle\Document\Operation";
+
   /**
    * Displays all operations
    * 
