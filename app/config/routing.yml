@@ -1,9 +1,9 @@
 _security_login:
   pattern: /login
-  defaults: {_controller: SecurityBundle:Auth:login}
+  defaults: {_controller: GuardBundle:Auth:login}
 
 _security_check:
   pattern: /login_check
 
 _expences:
-  resource: ExpencesBundle/Resources/config/routing.yml
+  resource: @ExpencesBundle/Resources/config/routing.yml

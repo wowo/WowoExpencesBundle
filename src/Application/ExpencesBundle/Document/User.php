@@ -1,6 +1,6 @@
 <?php
 namespace Application\ExpencesBundle\Document;
-use Symfony\Component\Security\User\AccountInterface;
+use Symfony\Component\Security\Core\User\AccountInterface;
 
 /**
  * Use 

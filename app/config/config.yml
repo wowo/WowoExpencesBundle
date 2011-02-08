@@ -1,20 +1,19 @@
 app.config:
-    charset:       UTF-8
-    error_handler: null
-    csrf_secret:   xxxxxxxxxx
-    router:        { resource: "%kernel.root_dir%/config/routing.yml" }
-    validation:    { enabled: true, annotations: true }
-    templating:    {} #assets_version: SomeVersionScheme
-    session:
-        default_locale: en
-        lifetime:       3600
-        auto_start:     true
-
+  charset:       UTF-8
+  error_handler: null
+  csrf_secret:   xxxxxxxxxx
+  router:        { resource: "%kernel.root_dir%/config/routing.yml" }
+  validation:    { enabled: true, annotations: true }
+  templating:    { engines: ['twig'] } #assets_version: SomeVersionScheme
+  security:      {}
+  session:
+    default_locale: en
+    lifetime:       3600
+    auto_start:     true
 
 twig.config:
-    debug:            %kernel.debug%
-    strict_variables: %kernel.debug%
-
+  debug:            %kernel.debug%
+  strict_variables: %kernel.debug%
 
 doctrine_odm.mongodb:
   auto_generate_hydrator_classes: true
@@ -25,23 +24,30 @@ doctrine_odm.mongodb:
   #server: "mongodb://localhost/expences"
   server: "mongodb://exp:asdf@flame.mongohq.com:27088/expences"
 
-webprofiler.config:
-  toolbar: true
-  intercept_redirects: false
-
 security.config:
   providers:
     default:
       document: {class: ExpencesBundle:User, property: username}
   encoders:
     "Application\ExpencesBundle\Document\User": sha1
-  firewalls:
-    public:
-      pattern: /login
-      security: false
-    main:
-      pattern: .*
-      logout: true
-      form_login:
-        always_use_default_target_path: true
-        default_target_path: /
+#  firewalls:
+#    public:
+#      pattern: /login
+#      security: false
+#    main:
+#      form_login:
+#        login_path: /login
+#  firewalls:
+#    public:
+#      pattern: /login
+#      security: false
+#    profiler:
+#      pattern: /_profiler
+#      security: false
+#    main:
+#      pattern: /.*
+#      logout: true
+#      form_login: true
+#      security: true
+#        #always_use_default_target_path: true
+#        #default_target_path: /
