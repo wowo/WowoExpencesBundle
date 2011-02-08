@@ -30,24 +30,13 @@ security.config:
       document: {class: ExpencesBundle:User, property: username}
   encoders:
     "Application\ExpencesBundle\Document\User": sha1
-#  firewalls:
-#    public:
-#      pattern: /login
-#      security: false
-#    main:
-#      form_login:
-#        login_path: /login
-#  firewalls:
-#    public:
-#      pattern: /login
-#      security: false
-#    profiler:
-#      pattern: /_profiler
-#      security: false
-#    main:
-#      pattern: /.*
-#      logout: true
-#      form_login: true
-#      security: true
-#        #always_use_default_target_path: true
-#        #default_target_path: /
+  firewalls:
+    public:
+      pattern: /login
+      security: false
+    main:
+      pattern: /.*
+      logout: true
+      form_login:
+        always_use_default_target_path: true
+        default_target_path: /
