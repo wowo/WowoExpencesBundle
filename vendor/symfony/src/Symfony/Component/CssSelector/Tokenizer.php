@@ -21,14 +21,6 @@ namespace Symfony\Component\CssSelector;
  */
 class Tokenizer
 {
-    /**
-     * Takes a CSS selector and returns an array holding the Tokens
-     * it contains.
-     *
-     * @param  string $s The selector to lex.
-     *
-     * @return array Token[]
-     */
     public function tokenize($s)
     {
         if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
@@ -103,16 +95,7 @@ class Tokenizer
     }
 
     /**
-     * Tokenizes a quoted string (i.e. 'A string quoted with \' characters'),
-     * and returns an array holding the unquoted string contained by $s and
-     * the new position from which tokenizing should take over.
-     *
      * @throws SyntaxError When expected closing is not found
-     *
-     * @param  string  $s   The selector string containing the quoted string.
-     * @param  integer $pos The starting position for the quoted string.
-     *
-     * @return array
      */
     protected function tokenizeEscapedString($s, $pos)
     {
@@ -142,13 +125,7 @@ class Tokenizer
     }
 
     /**
-     * Unescapes a string literal and returns the unescaped string.
-     *
      * @throws SyntaxError When invalid escape sequence is found
-     *
-     * @param  string $literal The string literal to unescape.
-     *
-     * @return string
      */
     protected function unescapeStringLiteral($literal)
     {
@@ -166,16 +143,7 @@ class Tokenizer
     }
 
     /**
-     * Lexes selector $s and returns an array holding the name of the symbol
-     * contained in it and the new position from which tokenizing should take
-     * over.
-     *
      * @throws SyntaxError When Unexpected symbol is found
-     *
-     * @param  string  $s   The selector string.
-     * @param  integer $pos The position in $s at which the symbol starts.
-     *
-     * @return array
      */
     protected function tokenizeSymbol($s, $pos)
     {

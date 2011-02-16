@@ -13,7 +13,6 @@ namespace Symfony\Component\Templating\Loader;
 
 use Symfony\Component\Templating\Storage\Storage;
 use Symfony\Component\Templating\Storage\FileStorage;
-use Symfony\Component\Templating\TemplateReferenceInterface;
 
 /**
  * FilesystemLoader is a loader that read templates from the filesystem.
@@ -41,20 +40,18 @@ class FilesystemLoader extends Loader
     /**
      * Loads a template.
      *
-     * @param TemplateReferenceInterface $template A template
+     * @param array $template The template name as an array
      *
      * @return Storage|Boolean false if the template cannot be loaded, a Storage instance otherwise
      */
-    public function load(TemplateReferenceInterface $template)
+    public function load($template)
     {
-        $file = $template->get('name');
-
-        if (self::isAbsolutePath($file) && file_exists($file)) {
-            return new FileStorage($file);
+        if (self::isAbsolutePath($template['name']) && file_exists($template['name'])) {
+            return new FileStorage($template['name']);
         }
 
         $replacements = array();
-        foreach ($template->all() as $key => $value) {
+        foreach ($template as $key => $value) {
             $replacements['%'.$key.'%'] = $value;
         }
 
@@ -85,17 +82,17 @@ class FilesystemLoader extends Loader
     /**
      * Returns true if the template is still fresh.
      *
-     * @param TemplateReferenceInterface    $template A template
-     * @param integer                       $time     The last modification time of the cached template (timestamp)
+     * @param array     $template The template name as an array
+     * @param timestamp $time     The last modification time of the cached template
      */
-    public function isFresh(TemplateReferenceInterface $template, $time)
+    public function isFresh($template, $time)
     {
-        if (false === $storage = $this->load($template))
+        if (false === $template = $this->load($template))
         {
             return false;
         }
 
-        return filemtime((string) $storage) < $time;
+        return filemtime((string) $template) < $time;
     }
 
     /**

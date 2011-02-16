@@ -59,12 +59,6 @@ class Form extends Field implements \IteratorAggregate, FormInterface
     protected $dataClass;
 
     /**
-     * Stores the constructor closure for creating new domain object instances
-     * @var \Closure
-     */
-    protected $dataConstructor;
-
-    /**
      * The context used when creating the form
      * @var FormContext
      */
@@ -92,7 +86,6 @@ class Form extends Field implements \IteratorAggregate, FormInterface
     public function __construct($name = null, array $options = array())
     {
         $this->addOption('data_class');
-        $this->addOption('data_constructor');
         $this->addOption('csrf_field_name', '_token');
         $this->addOption('csrf_provider');
         $this->addOption('field_factory');
@@ -100,7 +93,6 @@ class Form extends Field implements \IteratorAggregate, FormInterface
         $this->addOption('virtual', false);
         $this->addOption('validator');
         $this->addOption('context');
-        $this->addOption('by_reference', true);
 
         if (isset($options['validation_groups'])) {
             $options['validation_groups'] = (array)$options['validation_groups'];
@@ -108,10 +100,6 @@ class Form extends Field implements \IteratorAggregate, FormInterface
 
         if (isset($options['data_class'])) {
             $this->dataClass = $options['data_class'];
-        }
-
-        if (isset($options['data_constructor'])) {
-            $this->dataConstructor = $options['data_constructor'];
         }
 
         parent::__construct($name, $options);
@@ -352,16 +340,6 @@ class Form extends Field implements \IteratorAggregate, FormInterface
      */
     public function setData($data)
     {
-        if (empty($data)) {
-            if ($this->dataConstructor) {
-                $constructor = $this->dataConstructor;
-                $data = $constructor();
-            } else if ($this->dataClass) {
-                $class = $this->dataClass;
-                $data = new $class();
-            }
-        }
-
         parent::setData($data);
 
         // get transformed data and pass its values to child fields
@@ -734,10 +712,6 @@ class Form extends Field implements \IteratorAggregate, FormInterface
      */
     public function bind(Request $request, $data = null)
     {
-        if (!$this->getName()) {
-            throw new FormException('You cannot bind anonymous forms. Please give this form a name');
-        }
-
         // Store object from which to read the default values and where to
         // write the submitted values
         if (null !== $data) {
@@ -903,27 +877,6 @@ class Form extends Field implements \IteratorAggregate, FormInterface
             foreach ($groups as $group) {
                 $graphWalker->walkReference($this->getData(), $group, $propertyPath, true);
             }
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function writeProperty(&$objectOrArray)
-    {
-        $isReference = false;
-
-        // If the data is identical to the value in $objectOrArray, we are
-        // dealing with a reference
-        if ($this->getPropertyPath() !== null) {
-            $isReference = $this->getData() === $this->getPropertyPath()->getValue($objectOrArray);
-        }
-
-        // Don't write into $objectOrArray if $objectOrArray is an object,
-        // $isReference is true (see above) and the option "by_reference" is
-        // true as well
-        if (!is_object($objectOrArray) || !$isReference || !$this->getOption('by_reference')) {
-            parent::writeProperty($objectOrArray);
         }
     }
 

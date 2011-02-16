@@ -18,11 +18,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Finder\Finder;
 use Symfony\Bundle\FrameworkBundle\Util\Filesystem;
-use Symfony\Bundle\DoctrineAbstractBundle\Common\DataFixtures\Loader as DataFixturesLoader;
 use Doctrine\Common\Cli\Configuration;
 use Doctrine\Common\Cli\CliController as DoctrineCliController;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Internal\CommitOrderCalculator;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -75,15 +72,15 @@ EOT
             }
         }
 
-        $loader = new DataFixturesLoader($this->container);
+        $loader = new \Doctrine\Common\DataFixtures\Loader();
         foreach ($paths as $path) {
             if (is_dir($path)) {
                 $loader->loadFromDirectory($path);
             }
         }
         $fixtures = $loader->getFixtures();
-        $purger = new ORMPurger($em);
-        $executor = new ORMExecutor($em, $purger);
+        $purger = new \Doctrine\Common\DataFixtures\Purger\ORMPurger($em);
+        $executor = new \Doctrine\Common\DataFixtures\Executor\ORMExecutor($em, $purger);
         $executor->setLogger(function($message) use ($output) {
             $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', $message));
         });

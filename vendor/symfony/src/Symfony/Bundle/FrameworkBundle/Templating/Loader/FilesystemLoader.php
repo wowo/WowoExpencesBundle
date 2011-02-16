@@ -13,8 +13,6 @@ namespace Symfony\Bundle\FrameworkBundle\Templating\Loader;
 
 use Symfony\Component\Templating\Storage\FileStorage;
 use Symfony\Component\Templating\Loader\LoaderInterface;
-use Symfony\Component\Config\FileLocatorInterface;
-use Symfony\Component\Templating\TemplateReferenceInterface;
 
 /**
  * FilesystemLoader is a loader that read templates from the filesystem.
@@ -28,9 +26,9 @@ class FilesystemLoader implements LoaderInterface
     /**
      * Constructor.
      *
-     * @param FileLocatorInterface $locator A FileLocatorInterface instance
+     * @param TemplateLocatorInterface $locator A TemplateLocatorInterface instance
      */
-    public function __construct(FileLocatorInterface $locator)
+    public function __construct(TemplateLocatorInterface $locator)
     {
         $this->locator = $locator;
     }
@@ -38,15 +36,13 @@ class FilesystemLoader implements LoaderInterface
     /**
      * Loads a template.
      *
-     * @param TemplateReferenceInterface $template A template
+     * @param array $template The template name as an array
      *
      * @return Storage|Boolean false if the template cannot be loaded, a Storage instance otherwise
      */
-    public function load(TemplateReferenceInterface $template)
+    public function load($template)
     {
-        try {
-            $file = $this->locator->locate($template);
-        } catch (\InvalidArgumentException $e) {
+        if (false === $file = $this->locator->locate($template)) {
             return false;
         }
 
@@ -56,15 +52,15 @@ class FilesystemLoader implements LoaderInterface
     /**
      * Returns true if the template is still fresh.
      *
-     * @param TemplateReferenceInterface    $template The template name as an array
-     * @param integer                       $time     The last modification time of the cached template (timestamp)
+     * @param array     $template The template name as an array
+     * @param timestamp $time     The last modification time of the cached template
      */
-    public function isFresh(TemplateReferenceInterface $template, $time)
+    public function isFresh($template, $time)
     {
-        if (false === $storage = $this->load($template)) {
+        if (false === $template = $this->load($template)) {
             return false;
         }
 
-        return filemtime((string) $storage) < $time;
+        return filemtime((string) $template) < $time;
     }
 }

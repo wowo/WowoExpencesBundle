@@ -1,4 +1,4 @@
-doctrine_mongo_db:
+doctrine_odm.mongodb:
   server: mongodb://localhost:27017
   default_database: mydb
   options: { connect: true }

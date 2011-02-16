@@ -48,7 +48,7 @@ class ReversedTransformer implements ValueTransformerInterface
     /**
      * {@inheritDoc}
      */
-    public function reverseTransform($value)
+    public function reverseTransform($value, $originalValue)
     {
         return $this->reversedTransformer->transform($value);
     }

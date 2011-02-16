@@ -28,7 +28,10 @@ class AddClassesToCachePass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $classes = array();
-        foreach ($container->getExtensions() as $extension) {
+        foreach ($container->getExtensionConfigs() as $name => $configs) {
+            list($namespace, $tag) = explode(':', $name);
+
+            $extension = $container->getExtension($namespace);
             if ($extension instanceof Extension) {
                 $classes = array_merge($classes, $extension->getClassesToCompile());
             }

@@ -57,12 +57,6 @@ class XmlDumper extends Dumper
         return $xml;
     }
 
-    /**
-     * Adds parameters.
-     *
-     * @param DOMElement $parent 
-     * @return void
-     */
     protected function addParameters(\DOMElement $parent)
     {
         $data = $this->container->getParameterBag()->all();
@@ -79,13 +73,6 @@ class XmlDumper extends Dumper
         $this->convertParameters($data, 'parameter', $parameters);
     }
 
-    /**
-     * Adds method calls.
-     *
-     * @param array $methodcalls 
-     * @param DOMElement $parent 
-     * @return void
-     */
     protected function addMethodCalls(array $methodcalls, \DOMElement $parent)
     {
         foreach ($methodcalls as $methodcall) {
@@ -98,13 +85,6 @@ class XmlDumper extends Dumper
         }
     }
 
-    /**
-     * Adds interface injector.
-     *
-     * @param InterfaceInjector $injector 
-     * @param DOMElement $parent 
-     * @return void
-     */
     protected function addInterfaceInjector(InterfaceInjector $injector, \DOMElement $parent)
     {
         $interface = $this->document->createElement('interface');
@@ -113,12 +93,6 @@ class XmlDumper extends Dumper
         $parent->appendChild($interface);
     }
 
-    /**
-     * Adds interface injectors.
-     *
-     * @param DOMElement $parent 
-     * @return void
-     */
     protected function addInterfaceInjectors(\DOMElement $parent)
     {
         if (!$this->container->getInterfaceInjectors()) {
@@ -132,14 +106,6 @@ class XmlDumper extends Dumper
         $parent->appendChild($interfaces);
     }
 
-    /**
-     * Adds a service.
-     *
-     * @param Definition $definition 
-     * @param string $id 
-     * @param DOMElement $parent 
-     * @return void
-     */
     protected function addService($definition, $id, \DOMElement $parent)
     {
         $service = $this->document->createElement('service');
@@ -195,14 +161,6 @@ class XmlDumper extends Dumper
         $parent->appendChild($service);
     }
 
-    /**
-     * Adds a service alias.
-     *
-     * @param string $alias 
-     * @param string $id 
-     * @param DOMElement $parent 
-     * @return void
-     */
     protected function addServiceAlias($alias, $id, \DOMElement $parent)
     {
         $service = $this->document->createElement('service');
@@ -214,12 +172,6 @@ class XmlDumper extends Dumper
         $parent->appendChild($service);
     }
 
-    /**
-     * Adds services.
-     *
-     * @param DOMElement $parent 
-     * @return void
-     */
     protected function addServices(\DOMElement $parent)
     {
         $definitions = $this->container->getDefinitions();
@@ -238,14 +190,6 @@ class XmlDumper extends Dumper
         $parent->appendChild($services);
     }
 
-    /**
-     * Converts parameters.
-     *
-     * @param string $parameters 
-     * @param string $type 
-     * @param DOMElement $parent 
-     * @return void
-     */
     protected function convertParameters($parameters, $type, \DOMElement $parent)
     {
         $withKeys = array_keys($parameters) !== range(0, count($parameters) - 1);
@@ -281,12 +225,6 @@ class XmlDumper extends Dumper
         }
     }
 
-    /**
-     * Escapes arguments
-     *
-     * @param array $arguments 
-     * @return array
-     */
     protected function escape($arguments)
     {
         $args = array();
@@ -304,9 +242,6 @@ class XmlDumper extends Dumper
     }
 
     /**
-     * Converts php types to xml types.
-     *
-     * @param mixed $value Value to convert
      * @throws \RuntimeException When trying to dump object or resource
      */
     static public function phpToXml($value)

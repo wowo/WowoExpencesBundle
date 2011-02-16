@@ -93,7 +93,7 @@ class TwigEngine implements EngineInterface
 
         $template = $this->parser->parse($name);
 
-        return 'twig' === $template->get('engine');
+        return 'twig' === $template['engine'];
     }
 
     /**
@@ -119,11 +119,11 @@ class TwigEngine implements EngineInterface
     /**
      * Loads the given template.
      *
-     * @param mixed $name A template name or an instance of Twig_Template
+     * @param mixed $name A template name
      *
      * @return \Twig_TemplateInterface A \Twig_TemplateInterface instance
      *
-     * @throws \InvalidArgumentException if the template does not exist
+     * @throws \Twig_Error_Loader if the template cannot be found
      */
     protected function load($name)
     {
@@ -131,11 +131,6 @@ class TwigEngine implements EngineInterface
             return $name;
         }
 
-        try {
-            return $this->environment->loadTemplate($name);
-        } catch (\Twig_Error_Loader $e) {
-            throw new \InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
-        }
-        
+        return $this->environment->loadTemplate($this->parser->parse($name), is_array($name) ? json_encode($name) : $name);
     }
 }

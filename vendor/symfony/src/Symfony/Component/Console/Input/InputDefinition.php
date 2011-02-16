@@ -42,11 +42,6 @@ class InputDefinition
         $this->setDefinition($definition);
     }
 
-    /**
-     * Sets the definition of the input.
-     *
-     * @param array $definition The definition array
-     */
     public function setDefinition(array $definition)
     {
         $arguments = array();
@@ -301,8 +296,6 @@ class InputDefinition
 
     /**
      * Gets an InputOption by shortcut.
-     *
-     * @param string $shortcut the Shortcut name
      *
      * @return InputOption An InputOption object
      */

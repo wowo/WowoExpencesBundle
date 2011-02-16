@@ -67,13 +67,6 @@ class FormatterHelper extends Helper
         return implode("\n", $messages);
     }
 
-    /**
-     * Returns the length of a string, uses mb_strlen if it is available.
-     *
-     * @param string $string The string to check its length
-     *
-     * @return integer The length of the string
-     */
     protected function strlen($string)
     {
         return function_exists('mb_strlen') ? mb_strlen($string) : strlen($string);
@@ -81,8 +74,6 @@ class FormatterHelper extends Helper
 
     /**
      * Returns the helper's canonical name
-     *
-     * @return string The canonical name of the helper
      */
     public function getName()
     {

@@ -17,16 +17,16 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ZendExtensionTest extends TestCase
 {
-    public function testLoad()
+    public function testConfigLoad()
     {
         // logger
         $container = new ContainerBuilder();
         $loader = new ZendExtension();
 
-        $loader->load(array(array('logger' => array())), $container);
+        $loader->configLoad(array(array('logger' => array())), $container);
         $this->assertEquals('Symfony\\Bundle\\ZendBundle\\Logger\\Logger', $container->getParameter('zend.logger.class'), '->loggerLoad() loads the logger.xml file if not already loaded');
 
-        $loader->load(array(array('logger' => array('priority' => 3))), $container);
+        $loader->configLoad(array(array('logger' => array('priority' => 3))), $container);
         $this->assertEquals(3, $container->getParameter('zend.logger.priority'), '->loggerLoad() overrides existing configuration options');
     }
 }

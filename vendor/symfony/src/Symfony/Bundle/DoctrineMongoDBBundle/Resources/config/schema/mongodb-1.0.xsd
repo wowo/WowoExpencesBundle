@@ -5,9 +5,9 @@
     targetNamespace="http://www.symfony-project.org/schema/dic/doctrine/odm/mongodb"
     elementFormDefault="qualified">
 
-  <xsd:element name="config" type="config" />
+  <xsd:element name="odm" type="odm" />
 
-  <xsd:complexType name="config">
+  <xsd:complexType name="odm">
     <xsd:attribute name="host" type="xsd:string" />
     <xsd:attribute name="port" type="xsd:integer" />
     <xsd:attribute name="database" type="xsd:string" />

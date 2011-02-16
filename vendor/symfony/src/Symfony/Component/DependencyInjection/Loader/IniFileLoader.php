@@ -12,7 +12,7 @@
 namespace Symfony\Component\DependencyInjection\Loader;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\Resource\FileResource;
 
 /**
  * IniFileLoader loads parameters from INI files.
@@ -24,14 +24,13 @@ class IniFileLoader extends FileLoader
     /**
      * Loads a resource.
      *
-     * @param mixed  $resource The resource
-     * @param string $type     The resource type
+     * @param mixed            $resource       The resource
      *
      * @throws \InvalidArgumentException When ini file is not valid
      */
-    public function load($file, $type = null)
+    public function load($file)
     {
-        $path = $this->locator->locate($file);
+        $path = $this->findFile($file);
 
         $this->container->addResource(new FileResource($path));
 
@@ -50,12 +49,11 @@ class IniFileLoader extends FileLoader
     /**
      * Returns true if this class supports the given resource.
      *
-     * @param mixed  $resource A resource
-     * @param string $type     The resource type
+     * @param  mixed $resource A resource
      *
      * @return Boolean true if this class supports the given resource, false otherwise
      */
-    public function supports($resource, $type = null)
+    public function supports($resource)
     {
         return is_string($resource) && 'ini' === pathinfo($resource, PATHINFO_EXTENSION);
     }

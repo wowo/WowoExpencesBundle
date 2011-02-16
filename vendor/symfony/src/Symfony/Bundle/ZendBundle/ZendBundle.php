@@ -22,10 +22,26 @@ use Symfony\Bundle\ZendBundle\DependencyInjection\Compiler\ZendLoggerWriterPass;
  */
 class ZendBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function registerExtensions(ContainerBuilder $container)
     {
-        parent::build($container);
+        parent::registerExtensions($container);
 
         $container->addCompilerPass(new ZendLoggerWriterPass());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPath()
+    {
+        return __DIR__;
     }
 }

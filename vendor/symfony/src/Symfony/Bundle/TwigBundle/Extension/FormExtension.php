@@ -123,17 +123,12 @@ class FormExtension extends \Twig_Extension
      *
      *     {{ form_field(field, {}, {'separator': '+++++'}) }}
      *
-     * @param FieldInterface $field      The field to render
-     * @param array          $attributes HTML attributes passed to the template
-     * @param array          $parameters Additional variables passed to the template
-     * @param array|string   $resources  A resource or array of resources
+     * @param FieldInterface $field  The field to render
+     * @param array $params          Additional variables passed to the template
+     * @param string $resources
      */
     public function renderField(FieldInterface $field, array $attributes = array(), array $parameters = array(), $resources = null)
     {
-        if (null !== $resources && !is_array($resources)) {
-            $resources = array($resources);
-        }
-
         return $this->render($field, 'field', array(
             'field'  => $field,
             'attr'   => $attributes,
@@ -195,7 +190,7 @@ class FormExtension extends \Twig_Extension
         return $field->getData();
     }
 
-    protected function render(FieldInterface $field, $name, array $arguments, array $resources = null)
+    protected function render(FieldInterface $field, $name, array $arguments, $resources = null)
     {
         if ('field' === $name) {
             list($name, $template) = $this->getWidget($field, $resources);

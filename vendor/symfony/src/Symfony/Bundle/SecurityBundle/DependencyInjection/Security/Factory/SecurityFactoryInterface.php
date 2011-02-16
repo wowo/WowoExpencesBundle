@@ -11,7 +11,6 @@
 
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory;
 
-use Symfony\Component\DependencyInjection\Configuration\Builder\NodeBuilder;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -26,6 +25,4 @@ interface SecurityFactoryInterface
     function getPosition();
 
     function getKey();
-
-    function addConfiguration(NodeBuilder $builder);
 }

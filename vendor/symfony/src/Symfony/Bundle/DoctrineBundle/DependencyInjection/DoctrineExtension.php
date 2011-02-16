@@ -17,9 +17,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\Resource\FileResource;
 use Symfony\Bundle\DoctrineAbstractBundle\DependencyInjection\AbstractDoctrineExtension;
-use Symfony\Component\Config\FileLocator;
 
 /**
  * DoctrineExtension is an extension for the Doctrine DBAL and ORM library.
@@ -30,28 +29,6 @@ use Symfony\Component\Config\FileLocator;
  */
 class DoctrineExtension extends AbstractDoctrineExtension
 {
-    public function load(array $configs, ContainerBuilder $container)
-    {
-        $dbal = $orm = array();
-        foreach ($configs as $config) {
-            if (isset($config['dbal'])) {
-                $dbal[] = $config['dbal'];
-            }
-
-            if (isset($config['orm'])) {
-                $orm[] = $config['orm'];
-            }
-        }
-
-        if (!empty($dbal)) {
-            $this->dbalLoad($dbal, $container);
-        }
-
-        if (!empty($orm)) {
-            $this->ormLoad($orm, $container);
-        }
-    }
-
     /**
      * Loads the DBAL configuration.
      *
@@ -62,9 +39,9 @@ class DoctrineExtension extends AbstractDoctrineExtension
      * @param array $config An array of configuration settings
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    protected function dbalLoad(array $configs, ContainerBuilder $container)
+    public function dbalLoad(array $configs, ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
         $loader->load('dbal.xml');
 
         $config = $this->mergeDbalConfig($configs, $container);
@@ -252,9 +229,9 @@ class DoctrineExtension extends AbstractDoctrineExtension
      * @param array $config An array of configuration settings
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    protected function ormLoad(array $configs, ContainerBuilder $container)
+    public function ormLoad(array $configs, ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
         $loader->load('orm.xml');
 
         $config = $this->mergeOrmConfig($configs, $container);
@@ -431,7 +408,6 @@ class DoctrineExtension extends AbstractDoctrineExtension
             new Reference(sprintf('doctrine.orm.%s_configuration', $entityManager['name']))
         );
         $ormEmDef = new Definition('%doctrine.orm.entity_manager_class%', $ormEmArgs);
-        $ormEmDef->setFactoryClass('%doctrine.orm.entity_manager_class%');
         $ormEmDef->setFactoryMethod('create');
         $ormEmDef->addTag('doctrine.orm.entity_manager');
         $container->setDefinition($entityManagerService, $ormEmDef);

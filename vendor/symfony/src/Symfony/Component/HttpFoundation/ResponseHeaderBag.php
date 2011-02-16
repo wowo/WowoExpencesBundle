@@ -25,13 +25,13 @@ class ResponseHeaderBag extends HeaderBag
      *
      * @param array $headers An array of HTTP headers
      */
-    public function __construct(array $headers = array())
+    public function __construct(array $parameters = array())
     {
-        parent::__construct($headers);
+        // this line is not necessary, but including it avoids any stupid
+        // errors if we add code to the parent's constructor
+        parent::__construct();
 
-        if (!isset($this->headers['cache-control'])) {
-            $this->set('cache-control', '');
-        }
+        $this->replace($parameters);
     }
 
     /**
@@ -99,7 +99,7 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function clearCookie($name, $path = null, $domain = null)
     {
-        $this->setCookie(new Cookie($name, null, 1, $path, $domain));
+        $this->setCookie(new Cookie($name, null, time() - 86400, $path, $domain));
     }
 
     /**

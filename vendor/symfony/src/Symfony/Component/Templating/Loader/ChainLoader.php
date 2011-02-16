@@ -12,7 +12,6 @@
 namespace Symfony\Component\Templating\Loader;
 
 use Symfony\Component\Templating\Storage;
-use Symfony\Component\Templating\TemplateReferenceInterface;
 
 /**
  * ChainLoader is a loader that calls other loaders to load templates.
@@ -49,15 +48,15 @@ class ChainLoader extends Loader
     /**
      * Loads a template.
      *
-     * @param TemplateReferenceInterface $template A template
+     * @param array $template The template name as an array
      *
      * @return Storage|Boolean false if the template cannot be loaded, a Storage instance otherwise
      */
-    public function load(TemplateReferenceInterface $template)
+    public function load($template)
     {
         foreach ($this->loaders as $loader) {
-            if (false !== $storage = $loader->load($template)) {
-                return $storage;
+            if (false !== $ret = $loader->load($template)) {
+                return $ret;
             }
         }
 
@@ -67,10 +66,10 @@ class ChainLoader extends Loader
     /**
      * Returns true if the template is still fresh.
      *
-     * @param TemplateReferenceInterface    $template A template
-     * @param integer                       $time     The last modification time of the cached template (timestamp)
+     * @param array     $template The template name as an array
+     * @param timestamp $time     The last modification time of the cached template
      */
-    public function isFresh(TemplateReferenceInterface $template, $time)
+    public function isFresh($template, $time)
     {
         foreach ($this->loaders as $loader) {
             return $loader->isFresh($template);

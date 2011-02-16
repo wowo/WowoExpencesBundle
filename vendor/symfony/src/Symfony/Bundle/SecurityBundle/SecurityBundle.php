@@ -13,6 +13,7 @@ namespace Symfony\Bundle\SecurityBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Compiler\AddAuthenticationProvidersPass;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Compiler\AddSecurityVotersPass;
 
 /**
@@ -22,10 +23,27 @@ use Symfony\Bundle\SecurityBundle\DependencyInjection\Compiler\AddSecurityVoters
  */
 class SecurityBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function registerExtensions(ContainerBuilder $container)
     {
-        parent::build($container);
+        parent::registerExtensions($container);
 
         $container->addCompilerPass(new AddSecurityVotersPass());
+        $container->addCompilerPass(new AddAuthenticationProvidersPass());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPath()
+    {
+        return __DIR__;
     }
 }

@@ -39,11 +39,6 @@ class RequestDataCollector extends DataCollector
             $responseHeaders['Set-Cookie'] = $cookies;
         }
 
-        $attributes = array();
-        foreach ($request->attributes->all() as $key => $value) {
-            $attributes[$key] = is_object($value) ? sprintf('Object(%s)', get_class($value)) : $value;
-        }
-
         $this->data = array(
             'format'             => $request->getRequestFormat(),
             'content_type'       => $response->headers->get('Content-Type') ? $response->headers->get('Content-Type') : 'text/html',
@@ -53,7 +48,7 @@ class RequestDataCollector extends DataCollector
             'request_headers'    => $request->headers->all(),
             'request_server'     => $request->server->all(),
             'request_cookies'    => $request->cookies->all(),
-            'request_attributes' => $attributes,
+            'request_attributes' => $request->attributes->all(),
             'response_headers'   => $responseHeaders,
             'session_attributes' => $request->hasSession() ? $request->getSession()->getAttributes() : array(),
         );

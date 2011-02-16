@@ -11,8 +11,6 @@
 
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory;
 
-use Symfony\Component\DependencyInjection\Configuration\Builder\NodeBuilder;
-
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -40,8 +38,16 @@ abstract class AbstractFactory implements SecurityFactoryInterface
 
     public function create(ContainerBuilder $container, $id, $config, $userProviderId, $defaultEntryPointId)
     {
+        if (!is_array($config)) {
+            $config = array();
+        }
+
         // authentication provider
         $authProviderId = $this->createAuthProvider($container, $id, $config, $userProviderId);
+        $container
+            ->getDefinition($authProviderId)
+            ->addTag('security.authentication_provider')
+        ;
 
         // authentication listener
         $listenerId = $this->createListener($container, $id, $config, $userProviderId);
@@ -58,24 +64,6 @@ abstract class AbstractFactory implements SecurityFactoryInterface
         $entryPointId = $this->createEntryPoint($container, $id, $config, $defaultEntryPointId);
 
         return array($authProviderId, $listenerId, $entryPointId);
-    }
-
-    public function addConfiguration(NodeBuilder $node)
-    {
-        $node
-            ->scalarNode('provider')->end()
-            ->booleanNode('remember_me')->defaultTrue()->end()
-            ->scalarNode('success_handler')->end()
-            ->scalarNode('failure_handler')->end()
-        ;
-
-        foreach ($this->options as $name => $default) {
-            if (is_bool($default)) {
-                $node->booleanNode($name)->defaultValue($default);
-            } else {
-                $node->scalarNode($name)->defaultValue($default);
-            }
-        }
     }
 
     public final function addOption($name, $default = null)
@@ -139,15 +127,18 @@ abstract class AbstractFactory implements SecurityFactoryInterface
      */
     protected function isRememberMeAware($config)
     {
-        return $config['remember_me'];
+        return !isset($config['remember_me']) || (Boolean) $config['remember_me'];
     }
 
     protected function createListener($container, $id, $config, $userProvider)
     {
+        // merge set options with default options
+        $options = $this->getOptionsFromConfig($config);
+
         $listenerId = $this->getListenerId();
         $listener = new DefinitionDecorator($listenerId);
         $listener->setArgument(3, $id);
-        $listener->setArgument(4, array_intersect_key($config, $this->options));
+        $listener->setArgument(4, $options);
 
         // success handler
         if (isset($config['success_handler'])) {
@@ -163,5 +154,18 @@ abstract class AbstractFactory implements SecurityFactoryInterface
         $container->setDefinition($listenerId, $listener);
 
         return $listenerId;
+    }
+
+    protected final function getOptionsFromConfig($config)
+    {
+        $options = $this->options;
+
+        foreach (array_keys($options) as $key) {
+            if (array_key_exists($key, $config)) {
+                $options[$key] = $config[$key];
+            }
+        }
+
+        return $options;
     }
 }

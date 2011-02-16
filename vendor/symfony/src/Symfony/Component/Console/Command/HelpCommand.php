@@ -28,7 +28,7 @@ class HelpCommand extends Command
     protected $command;
 
     /**
-     * {@inheritdoc}
+     * @see Command
      */
     protected function configure()
     {
@@ -54,18 +54,13 @@ EOF
             );
     }
 
-    /**
-     * Sets the command
-     *
-     * @param Command $command The command to set
-     */
     public function setCommand(Command $command)
     {
         $this->command = $command;
     }
 
     /**
-     * {@inheritdoc}
+     * @see Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

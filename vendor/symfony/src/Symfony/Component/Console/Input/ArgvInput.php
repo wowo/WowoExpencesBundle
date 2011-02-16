@@ -252,36 +252,4 @@ class ArgvInput extends Input
 
         return false;
     }
-
-    /**
-     * Returns the value of a raw option (not parsed).
-     *
-     * This method is to be used to introspect the input parameters
-     * before it has been validated. It must be used carefully.
-     *
-     * @param string|array $values The value(s) to look for in the raw parameters (can be an array)
-     * @param mixed $default The default value to return if no result is found
-     * @return mixed The option value
-     */
-    public function getParameterOption($values, $default = false)
-    {
-        if (!is_array($values)) {
-            $values = array($values);
-        }
-
-        $tokens = $this->tokens;
-        while ($token = array_shift($tokens)) {
-            foreach ($values as $value) {
-                if (0 === strpos($token, $value)) {
-                    if (false !== $pos = strpos($token, '=')) {
-                        return substr($token, $pos + 1);
-                    } else {
-                        return array_shift($tokens);
-                    }
-                }
-            }
-        }
-
-        return $default;
-    }
 }

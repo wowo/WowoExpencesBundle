@@ -223,34 +223,14 @@ class Request
     public function duplicate(array $query = null, array $request = null, array $attributes = null, array $cookies = null, array $files = null, array $server = null)
     {
         $dup = clone $this;
-        if ($query !== null) {
-          $dup->query = new ParameterBag($query);
-        }
-        if ($request !== null) {
-          $dup->request = new ParameterBag($request);
-        }
-        if ($attributes !== null) {
-          $dup->attributes = new ParameterBag($attributes);
-        }
-        if ($cookies !== null) {
-          $dup->cookies = new ParameterBag($cookies);
-        }
-        if ($files !== null) {
-          $dup->files = new FileBag($files);
-        }
-        if ($server !== null) {
-          $dup->server = new ServerBag($server);
-          $dup->headers = new HeaderBag($dup->server->getHeaders());
-        }
-        $this->languages = null;
-        $this->charsets = null;
-        $this->acceptableContentTypes = null;
-        $this->pathInfo = null;
-        $this->requestUri = null;
-        $this->baseUrl = null;
-        $this->basePath = null;
-        $this->method = null;
-        $this->format = null;
+        $dup->initialize(
+            null !== $query ? $query : $this->query->all(),
+            null !== $request ? $request : $this->request->all(),
+            null !== $attributes ? $attributes : $this->attributes->all(),
+            null !== $cookies ? $cookies : $this->cookies->all(),
+            null !== $files ? $files : $this->files->all(),
+            null !== $server ? $server : $this->server->all()
+        );
 
         return $dup;
     }

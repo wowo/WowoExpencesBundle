@@ -22,15 +22,24 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CookieClearingLogoutHandler implements LogoutHandlerInterface
 {
-    protected $cookies;
+    protected $cookieNames;
 
     /**
      * Constructor
-     * @param array $cookies An array of cookie names to unset
+     * @param array $cookieNames An array of cookie names to unset
      */
-    public function __construct(array $cookies)
+    public function __construct(array $cookieNames)
     {
-        $this->cookies = $cookies;
+        $this->cookieNames = $cookieNames;
+    }
+
+    /**
+     * Returns the names of the cookies to unset
+     * @return array
+     */
+    public function getCookieNames()
+    {
+        return $this->cookieNames;
     }
 
     /**
@@ -43,8 +52,8 @@ class CookieClearingLogoutHandler implements LogoutHandlerInterface
      */
     public function logout(Request $request, Response $response, TokenInterface $token)
     {
-        foreach ($this->cookies as $cookieName => $cookieData) {
-            $response->headers->clearCookie($cookieName, $cookieData['path'], $cookieData['domain']);
+        foreach ($this->cookieNames as $cookieName) {
+            $response->headers->clearCookie($cookieName);
         }
     }
 }

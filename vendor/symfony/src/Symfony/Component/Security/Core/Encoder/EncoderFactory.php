@@ -21,10 +21,12 @@ use Symfony\Component\Security\Core\User\AccountInterface;
 class EncoderFactory implements EncoderFactoryInterface
 {
     protected $encoders;
+    protected $encoderMap;
 
-    public function __construct(array $encoders)
+    public function __construct(array $encoderMap)
     {
-        $this->encoders = $encoders;
+        $this->encoders = array();
+        $this->encoderMap = $encoderMap;
     }
 
     /**
@@ -33,37 +35,43 @@ class EncoderFactory implements EncoderFactoryInterface
     public function getEncoder(AccountInterface $account)
     {
         foreach ($this->encoders as $class => $encoder) {
-            if (!$account instanceof $class) {
-                continue;
+            if ($account instanceof $class) {
+                return $encoder;
             }
-
-            if (!$encoder instanceof PasswordEncoderInterface) {
-                return $this->encoders[$class] = $this->createEncoder($encoder);
-            }
-
-            return $this->encoders[$class];
         }
 
-        throw new \RuntimeException(sprintf('No encoder has been configured for account "%s".', get_class($account)));
+        return $this->createEncoder($account);
+    }
+
+    /**
+     * Adds an encoder instance to the factory
+     *
+     * @param string $class
+     * @param PasswordEncoderInterface $encoder
+     * @return void
+     */
+    public function addEncoder($class, PasswordEncoderInterface $encoder)
+    {
+        $this->encoders[$class] = $encoder;
     }
 
     /**
      * Creates the actual encoder instance
      *
-     * @param array $config
+     * @param AccountInterface $account
      * @return PasswordEncoderInterface
      */
-    protected function createEncoder(array $config)
+    protected function createEncoder($account)
     {
-        if (!isset($config['class'])) {
-            throw new \InvalidArgumentException(sprintf('"class" must be set in %s.', json_encode($config)));
-        }
-        if (!isset($config['arguments'])) {
-            throw new \InvalidArgumentException(sprintf('"arguments" must be set in %s.', json_encode($config)));
+        foreach ($this->encoderMap as $class => $config) {
+            if ($account instanceof $class) {
+                $reflection = new \ReflectionClass($config['class']);
+                $this->encoders[$class] = $reflection->newInstanceArgs($config['arguments']);
+
+                return $this->encoders[$class];
+            }
         }
 
-        $reflection = new \ReflectionClass($config['class']);
-
-        return $reflection->newInstanceArgs($config['arguments']);
+        throw new \InvalidArgumentException(sprintf('No encoder has been configured for account "%s".', get_class($account)));
     }
 }

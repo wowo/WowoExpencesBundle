@@ -23,11 +23,6 @@ class RepeatedPass implements CompilerPassInterface
     protected $repeat;
     protected $passes;
 
-    /**
-     * Constructor.
-     *
-     * @param array $passes An array of RepeatablePassInterface objects
-     */
     public function __construct(array $passes)
     {
         foreach ($passes as $pass) {
@@ -41,11 +36,6 @@ class RepeatedPass implements CompilerPassInterface
         $this->passes = $passes;
     }
 
-    /**
-     * Process the repeatable passes that run more than once.
-     *
-     * @param ContainerBuilder $container 
-     */
     public function process(ContainerBuilder $container)
     {
         $compiler = $container->getCompiler();
@@ -63,19 +53,11 @@ class RepeatedPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * Sets if the pass should repeat
-     */
     public function setRepeat()
     {
         $this->repeat = true;
     }
 
-    /**
-     * Returns the passes
-     *
-     * @return array An array of RepeatablePassInterface objects
-     */
     public function getPasses()
     {
         return $this->passes;

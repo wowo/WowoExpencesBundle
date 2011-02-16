@@ -13,14 +13,13 @@ namespace Symfony\Bundle\TwigBundle\Tests\Loader;
 
 use Symfony\Bundle\TwigBundle\Tests\TestCase;
 use Symfony\Bundle\TwigBundle\Loader\FilesystemLoader;
-use Symfony\Component\Config\FileLocatorInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
+use Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocatorInterface;
 use Symfony\Component\Templating\TemplateNameParserInterface;
 use InvalidArgumentException;
 
 class FilesystemLoaderTest extends TestCase
 {
-    /** @var FileLocatorInterface */
+    /** @var TemplateLocatorInterface */
     private $locator;
     /** @var TemplateNameParserInterface */
     private $parser;
@@ -31,15 +30,9 @@ class FilesystemLoaderTest extends TestCase
     {
         parent::setUp();
 
-        $this->locator = $this->getMock('Symfony\Component\Config\FileLocatorInterface');
+        $this->locator = $this->getMock('Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocatorInterface');
         $this->parser = $this->getMock('Symfony\Component\Templating\TemplateNameParserInterface');
         $this->loader = new FilesystemLoader($this->locator, $this->parser);
-
-        $this->parser->expects($this->once())
-                ->method('parse')
-                ->with('name.engine.format')
-                ->will($this->returnValue(new TemplateReference('', '', 'name', 'engine', 'format')))
-        ;
     }
 
     public function testTwigErrorIfLocatorThrowsInvalid()
@@ -50,7 +43,7 @@ class FilesystemLoaderTest extends TestCase
                       ->method('locate')
                       ->will($this->throwException($invalidException));
 
-        $this->loader->getCacheKey('name.engine.format');
+        $this->loader->getCacheKey('NonExistent');
     }
 
     public function testTwigErrorIfLocatorReturnsFalse()
@@ -60,6 +53,6 @@ class FilesystemLoaderTest extends TestCase
                       ->method('locate')
                       ->will($this->returnValue(false));
 
-        $this->loader->getCacheKey('name.engine.format');
+        $this->loader->getCacheKey('NonExistent');
     }
 }

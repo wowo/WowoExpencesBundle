@@ -1,4 +1,4 @@
-framework:
+app.config:
   charset:       UTF-8
   error_handler: null
   csrf_secret:   xxxxxxxxxx
@@ -11,24 +11,28 @@ framework:
     lifetime:       3600
     auto_start:     true
 
-twig:
+twig.config:
   debug:            %kernel.debug%
   strict_variables: %kernel.debug%
 
-doctrine_mongo_db:
+doctrine_odm.mongodb:
   auto_generate_hydrator_classes: true
   auto_generate_proxy_classes: true
   mappings:
     ExpencesBundle: {type: annotation}
   default_database: expences
   #server: "mongodb://localhost/expences"
-  server: "mongodb://exp:asdf@flame.mongohq.com:27088/expences"
+  connections:
+    default:
+      server: "mongodb://exp:asdf@flame.mongohq.com:27088/expences"
+      options:
+        connect: true
 
-doctrine:
-  dbal:
-    default_connection: ~
+#doctrine.config:
+#  dbal:
+#    default_connection: ~
 
-security:
+security.config:
   providers:
     default:
       document: {class: ExpencesBundle:User, property: username}

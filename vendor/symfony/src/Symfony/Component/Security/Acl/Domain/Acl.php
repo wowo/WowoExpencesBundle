@@ -232,7 +232,7 @@ class Acl implements AuditableAclInterface
      */
     public function isSidLoaded($sids)
     {
-        if (!$this->loadedSids) {
+        if (0 === count($this->loadedSids)) {
             return true;
         }
 

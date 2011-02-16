@@ -13,9 +13,8 @@ namespace Symfony\Component\Routing\Loader;
 
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
-use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Routing\Resource\FileResource;
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Config\Loader\FileLoader;
 
 /**
  * YamlFileLoader loads Yaml routing files.
@@ -58,7 +57,8 @@ class YamlFileLoader extends FileLoader
                 $type = isset($config['type']) ? $config['type'] : null;
                 $prefix = isset($config['prefix']) ? $config['prefix'] : null;
                 $this->currentDir = dirname($path);
-                $collection->addCollection($this->import($config['resource'], $type), $prefix);
+                $file = $this->locator->locate($config['resource'], $this->currentDir);
+                $collection->addCollection($this->import($file, $type), $prefix);
             } elseif (isset($config['pattern'])) {
                 $this->parseRoute($collection, $name, $config, $path);
             } else {

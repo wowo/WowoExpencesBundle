@@ -27,4 +27,20 @@ class FabpotFooBundle extends Bundle
     {
         return 'SensioFooBundle';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPath()
+    {
+        return __DIR__;
+    }
 }

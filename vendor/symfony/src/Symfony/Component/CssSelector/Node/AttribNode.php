@@ -30,15 +30,6 @@ class AttribNode implements NodeInterface
     protected $operator;
     protected $value;
 
-    /**
-     * Constructor.
-     *
-     * @param NodeInterface $selector The XPath selector
-     * @param string $namespace The namespace
-     * @param string $attrib The attribute
-     * @param string $operator The operator
-     * @param string $value The value
-     */
     public function __construct($selector, $namespace, $attrib, $operator, $value)
     {
         $this->selector = $selector;
@@ -48,9 +39,6 @@ class AttribNode implements NodeInterface
         $this->value = $value;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __toString()
     {
         if ($this->operator == 'exists') {
@@ -61,7 +49,7 @@ class AttribNode implements NodeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @throws SyntaxError When unknown operator is found
      */
     public function toXpath()
     {
@@ -100,11 +88,6 @@ class AttribNode implements NodeInterface
         return $path;
     }
 
-    /**
-     * Returns the XPath Attribute
-     *
-     * @return string The XPath attribute
-     */
     protected function xpathAttrib()
     {
         // FIXME: if attrib is *?
@@ -115,11 +98,6 @@ class AttribNode implements NodeInterface
         return sprintf('@%s:%s', $this->namespace, $this->attrib);
     }
 
-    /**
-     * Returns a formatted attribute
-     *
-     * @return string The formatted attributep
-     */
     protected function formatAttrib()
     {
         if ($this->namespace == '*') {

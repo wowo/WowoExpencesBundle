@@ -2,8 +2,6 @@
 
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory;
 
-use Symfony\Component\DependencyInjection\Configuration\Builder\NodeBuilder;
-
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 
 use Symfony\Component\DependencyInjection\Reference;
@@ -12,25 +10,23 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RememberMeFactory implements SecurityFactoryInterface
 {
-    protected $options = array(
-        'name' => 'REMEMBERME',
-        'lifetime' => 31536000,
-        'path' => '/',
-        'domain' => null,
-        'secure' => false,
-        'httponly' => true,
-        'always_remember_me' => false,
-        'remember_me_parameter' => '_remember_me',
-    );
-
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
+        if (!isset($config['key']) || empty($config['key'])) {
+            throw new \RuntimeException('A "key" must be defined for each remember-me section.');
+        }
+
+        if (isset($config['provider'])) {
+            throw new \RuntimeException('You must not set a user provider for remember-me.');
+        }
+
         // authentication provider
         $authProviderId = 'security.authentication.provider.rememberme.'.$id;
         $container
             ->setDefinition($authProviderId, new DefinitionDecorator('security.authentication.provider.rememberme'))
             ->addArgument($config['key'])
             ->addArgument($id)
+            ->addTag('security.authentication_provider')
         ;
 
         // remember me services
@@ -64,7 +60,22 @@ class RememberMeFactory implements SecurityFactoryInterface
         }
 
         // remember-me options
-        $rememberMeServices->setArgument(3, array_intersect_key($config, $this->options));
+        $options = array(
+            'name' => 'REMEMBERME',
+            'lifetime' => 31536000,
+            'path' => '/',
+            'domain' => null,
+            'secure' => false,
+            'httponly' => true,
+            'always_remember_me' => false,
+            'remember_me_parameter' => '_remember_me',
+        );
+        foreach ($options as $name => $option) {
+            if (array_key_exists($name, $config)) {
+                $options[$name] = $config[$name];
+            }
+        }
+        $rememberMeServices->setArgument(3, $options);
 
         // attach to remember-me aware listeners
         $userProviders = array();
@@ -106,21 +117,5 @@ class RememberMeFactory implements SecurityFactoryInterface
     public function getKey()
     {
         return 'remember-me';
-    }
-
-    public function addConfiguration(NodeBuilder $node)
-    {
-        $node
-            ->scalarNode('key')->isRequired()->cannotBeEmpty()->end()
-            ->scalarNode('token_provider')->end()
-        ;
-
-        foreach ($this->options as $name => $value) {
-            if (is_bool($value)) {
-                $node->booleanNode($name)->defaultValue($value);
-            } else {
-                $node->scalarNode($name)->defaultValue($value);
-            }
-        }
     }
 }

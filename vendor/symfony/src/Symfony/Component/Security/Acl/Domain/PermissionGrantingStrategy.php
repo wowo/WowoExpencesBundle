@@ -30,15 +30,7 @@ class PermissionGrantingStrategy implements PermissionGrantingStrategyInterface
     const ALL   = 'all';
     const ANY   = 'any';
 
-    protected static $noAceException;
     protected $auditLogger;
-
-    public function __construct()
-    {
-        if (null === static::$noAceException) {
-            static::$noAceException = new NoAceFoundException('No ACE.');
-        }
-    }
 
     /**
      * Sets the audit logger
@@ -70,16 +62,16 @@ class PermissionGrantingStrategy implements PermissionGrantingStrategyInterface
             try {
                 $aces = $acl->getObjectAces();
 
-                if (!$aces) {
-                    throw static::$noAceException;
+                if (0 === count($aces)) {
+                    throw new NoAceFoundException('No applicable ACE was found.');
                 }
 
                 return $this->hasSufficientPermissions($acl, $aces, $masks, $sids, $administrativeMode);
             } catch (NoAceFoundException $noObjectAce) {
                 $aces = $acl->getClassAces();
 
-                if (!$aces) {
-                    throw static::$noAceException;
+                if (0 === count($aces)) {
+                    throw new NoAceFoundException('No applicable ACE was found.');
                 }
 
                 return $this->hasSufficientPermissions($acl, $aces, $masks, $sids, $administrativeMode);
@@ -101,15 +93,15 @@ class PermissionGrantingStrategy implements PermissionGrantingStrategyInterface
         try {
             try {
                 $aces = $acl->getObjectFieldAces($field);
-                if (!$aces) {
-                    throw static::$noAceException;
+                if (0 === count($aces)) {
+                    throw new NoAceFoundException('No applicable ACE was found.');
                 }
 
                 return $this->hasSufficientPermissions($acl, $aces, $masks, $sids, $administrativeMode);
             } catch (NoAceFoundException $noObjectAces) {
                 $aces = $acl->getClassFieldAces($field);
-                if (!$aces) {
-                    throw static::$noAceException;
+                if (0 === count($aces)) {
+                    throw new NoAceFoundException('No applicable ACE was found.');
                 }
 
                 return $this->hasSufficientPermissions($acl, $aces, $masks, $sids, $administrativeMode);
@@ -159,8 +151,12 @@ class PermissionGrantingStrategy implements PermissionGrantingStrategyInterface
 
         foreach ($masks as $requiredMask) {
             foreach ($sids as $sid) {
+                if (!$acl->isSidLoaded($sid)) {
+                    throw new SidNotLoadedException(sprintf('The SID "%s" has not been loaded.', $sid));
+                }
+
                 foreach ($aces as $ace) {
-                    if ($sid->equals($ace->getSecurityIdentity()) && $this->isAceApplicable($requiredMask, $ace)) {
+                    if ($this->isAceApplicable($requiredMask, $sid, $ace)) {
                         if ($ace->isGranting()) {
                             if (!$administrativeMode && null !== $this->auditLogger) {
                                 $this->auditLogger->logIfNeeded(true, $ace);
@@ -187,7 +183,7 @@ class PermissionGrantingStrategy implements PermissionGrantingStrategyInterface
             return false;
         }
 
-        throw static::$noAceException;
+        throw new NoAceFoundException('No applicable ACE was found.');
     }
 
     /**
@@ -207,12 +203,17 @@ class PermissionGrantingStrategy implements PermissionGrantingStrategyInterface
      * Strategy EQUAL:
      * The ACE will be considered applicable when the bitmasks are equal.
      *
-     * @param integer $requiredMask
+     * @param SecurityIdentityInterface $sid
      * @param EntryInterface $ace
+     * @param int $requiredMask
      * @return Boolean
      */
-    protected function isAceApplicable($requiredMask, EntryInterface $ace)
+    protected function isAceApplicable($requiredMask, SecurityIdentityInterface $sid, EntryInterface $ace)
     {
+        if (false === $ace->getSecurityIdentity()->equals($sid)) {
+            return false;
+        }
+
         $strategy = $ace->getStrategy();
         if (self::ALL === $strategy) {
             return $requiredMask === ($ace->getMask() & $requiredMask);

@@ -11,56 +11,61 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Templating\Loader;
 
-use Symfony\Component\Config\FileLocatorInterface;
-use Symfony\Component\Templating\TemplateReferenceInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * TemplateLocator locates templates in bundles.
  *
  * @author Fabien Potencier <fabien.potencier@symfony-project.com>
  */
-class TemplateLocator implements FileLocatorInterface
+class TemplateLocator implements TemplateLocatorInterface
 {
-    protected $locator;
+    protected $kernel;
     protected $path;
     protected $cache;
 
     /**
      * Constructor.
      *
-     * @param FileLocatorInterface $locator A FileLocatorInterface instance
-     * @param string               $path    A global fallback path
+     * @param KernelInterface $kernel A KernelInterface instance
+     * @param string          $path   A global fallback path
      */
-    public function __construct(FileLocatorInterface $locator, $path)
+    public function __construct(KernelInterface $kernel, $path)
     {
-        $this->locator = $locator;
+        $this->kernel = $kernel;
         $this->path = $path;
         $this->cache = array();
     }
 
     /**
-     * Returns a full path for a given file.
+     * Locates a template on the filesystem.
      *
-     * @param TemplateReferenceInterface    $template     A template
-     * @param string                        $currentPath  Unused
-     * @param Boolean                       $first        Unused
+     * @param array $template The template name as an array
      *
-     * @return string The full path for the file
-     *
-     * @throws \InvalidArgumentException When file is not found
+     * @return string An absolute file name
      */
-    public function locate($template, $currentPath = null, $first = true)
+    public function locate($template)
     {
-        $key = $template->getSignature();
+        $key = md5(serialize($template));
 
         if (isset($this->cache[$key])) {
             return $this->cache[$key];
         }
 
+        if (!$template['bundle']) {
+            if (is_file($file = $this->path.'/views/'.$template['controller'].'/'.$template['name'].'.'.$template['format'].'.'.$template['engine'])) {
+                return $this->cache[$key] = $file;
+            }
+
+            throw new \InvalidArgumentException(sprintf('Unable to find template "%s" in "%s".', json_encode($template), $this->path));
+        }
+
+        $resource = $template['bundle'].'/Resources/views/'.$template['controller'].'/'.$template['name'].'.'.$template['format'].'.'.$template['engine'];
+
         try {
-            return $this->cache[$key] = $this->locator->locate($template->getPath(), $this->path);
-        } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException(sprintf('Unable to find template "%s" in "%s".', json_encode($template), $this->path), 0, $e);
+            return $this->kernel->locateResource('@'.$resource, $this->path);
+        } catch (\Exception $e) {
+            throw new \InvalidArgumentException(sprintf('Unable to find template "%s".', json_encode($template), $this->path), 0, $e);
         }
     }
 }

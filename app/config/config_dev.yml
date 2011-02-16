@@ -1,7 +1,7 @@
 imports:
     - { resource: config.yml }
 
-framework:
+app.config:
     router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
     #profiler: { only_exceptions: false }
 
@@ -9,7 +9,7 @@ framework:
 #    toolbar: true
 #    intercept_redirects: false
 
-zend:
-  logger:
-    priority: debug
-    path:     %kernel.logs_dir%/%kernel.environment%.log
+#zend:
+#  logger:
+#    priority: debug
+#    path:     %kernel.logs_dir%/%kernel.environment%.log

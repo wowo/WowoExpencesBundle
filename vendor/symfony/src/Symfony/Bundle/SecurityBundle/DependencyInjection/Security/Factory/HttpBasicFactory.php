@@ -11,8 +11,6 @@
 
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory;
 
-use Symfony\Component\DependencyInjection\Configuration\Builder\NodeBuilder;
-
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -31,6 +29,7 @@ class HttpBasicFactory implements SecurityFactoryInterface
             ->setDefinition($provider, new DefinitionDecorator('security.authentication.provider.dao'))
             ->setArgument(0, new Reference($userProvider))
             ->setArgument(2, $id)
+            ->addTag('security.authentication_provider')
         ;
 
         // listener
@@ -53,12 +52,5 @@ class HttpBasicFactory implements SecurityFactoryInterface
     public function getKey()
     {
         return 'http-basic';
-    }
-
-    public function addConfiguration(NodeBuilder $builder)
-    {
-        $builder
-            ->scalarNode('provider')->end()
-        ;
     }
 }

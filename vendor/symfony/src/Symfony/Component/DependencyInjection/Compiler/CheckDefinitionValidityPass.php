@@ -20,12 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class CheckDefinitionValidityPass implements CompilerPassInterface
 {
-    /**
-     * Processes the ContainerBuilder to validate the Definition.
-     *
-     * @param ContainerBuilder $container 
-     * @throws \RuntimeException When the Definition is invalid
-     */
     public function process(ContainerBuilder $container)
     {
         foreach ($container->getDefinitions() as $id => $definition) {
@@ -47,7 +41,7 @@ class CheckDefinitionValidityPass implements CompilerPassInterface
 
             // non-synthetic, non-abstract service has class
             if (!$definition->isAbstract() && !$definition->isSynthetic() && !$definition->getClass()) {
-                if ($definition->getFactoryClass() || $definition->getFactoryService()) {
+                if ($definition->getFactoryService()) {
                     throw new \RuntimeException(sprintf(
                         'Please add the class to service "%s" even if it is constructed '
                        .'by a factory since we might need to add method calls based on '

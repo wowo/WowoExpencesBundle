@@ -12,6 +12,7 @@
 namespace Symfony\Component\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Definition;
+
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -33,28 +34,15 @@ class AnalyzeServiceReferencesPass implements RepeatablePassInterface
     protected $repeatedPass;
     protected $ignoreMethodCalls;
 
-    /**
-     * Constructor.
-     *
-     * @param boolean $ignoreMethodCalls Sets this Service Reference pass to ignore method calls
-     */
     public function __construct($ignoreMethodCalls = false)
     {
         $this->ignoreMethodCalls = (Boolean) $ignoreMethodCalls;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function setRepeatedPass(RepeatedPass $repeatedPass) {
         $this->repeatedPass = $repeatedPass;
     }
 
-    /**
-     * Processes a ContainerBuilder object to populate the service reference graph.
-     *
-     * @param ContainerBuilder $container 
-     */
     public function process(ContainerBuilder $container)
     {
         $this->container = $container;
@@ -80,11 +68,6 @@ class AnalyzeServiceReferencesPass implements RepeatablePassInterface
         }
     }
 
-    /**
-     * Processes service definitions for arguments to find relationships for the service graph.
-     *
-     * @param array $arguments An array of Reference or Definition objects relating to service definitions
-     */
     protected function processArguments(array $arguments)
     {
         foreach ($arguments as $argument) {
@@ -105,12 +88,6 @@ class AnalyzeServiceReferencesPass implements RepeatablePassInterface
         }
     }
 
-    /**
-     * Returns a service definition given the full name or an alias.
-     *
-     * @param string $id A full id or alias for a service definition.
-     * @return Definition The definition related to the supplied id
-     */
     protected function getDefinition($id)
     {
         while ($this->container->hasAlias($id)) {

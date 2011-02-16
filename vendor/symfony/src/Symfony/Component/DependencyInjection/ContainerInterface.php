@@ -104,10 +104,11 @@ interface ContainerInterface
     /**
      * Adds a scope to the container
      *
-     * @param ScopeInterface $scope
+     * @param string $name
+     * @param string $parentScope
      * @return void
      */
-    function addScope(ScopeInterface $scope);
+    function addScope($name, $parentScope = self::SCOPE_CONTAINER);
 
     /**
      * Whether this container has the given scope
@@ -122,7 +123,6 @@ interface ContainerInterface
      *
      * It does however not check if the scope actually exists.
      *
-     * @param string $name
      * @return Boolean
      */
     function isScopeActive($name);

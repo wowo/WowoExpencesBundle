@@ -16,11 +16,6 @@ class ResolveDefinitionTemplatesPass implements CompilerPassInterface
 {
     protected $container;
 
-    /**
-     * Process the ContainerBuilder to replace DefinitionDecorator instances with their real Definition instances.
-     *
-     * @param ContainerBuilder $container 
-     */
     public function process(ContainerBuilder $container)
     {
         $this->container = $container;
@@ -36,13 +31,6 @@ class ResolveDefinitionTemplatesPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * Resolves the definition
-     *
-     * @param string $id The definition identifier
-     * @param DefinitionDecorator $definition 
-     * @return Definition
-     */
     protected function resolveDefinition($id, DefinitionDecorator $definition)
     {
         if (!$this->container->hasDefinition($parent = $definition->getParent())) {
@@ -61,9 +49,8 @@ class ResolveDefinitionTemplatesPass implements CompilerPassInterface
         $def->setClass($parentDef->getClass());
         $def->setArguments($parentDef->getArguments());
         $def->setMethodCalls($parentDef->getMethodCalls());
-        $def->setFactoryClass($parentDef->getFactoryClass());
-        $def->setFactoryMethod($parentDef->getFactoryMethod());
         $def->setFactoryService($parentDef->getFactoryService());
+        $def->setFactoryMethod($parentDef->getFactoryMethod());
         $def->setConfigurator($parentDef->getConfigurator());
         $def->setFile($parentDef->getFile());
         $def->setPublic($parentDef->isPublic());
@@ -72,9 +59,6 @@ class ResolveDefinitionTemplatesPass implements CompilerPassInterface
         $changes = $definition->getChanges();
         if (isset($changes['class'])) {
             $def->setClass($definition->getClass());
-        }
-        if (isset($changes['factory_class'])) {
-            $def->setFactoryClass($definition->getFactoryClass());
         }
         if (isset($changes['factory_method'])) {
             $def->setFactoryMethod($definition->getFactoryMethod());

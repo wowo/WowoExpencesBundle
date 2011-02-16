@@ -299,9 +299,7 @@ class Container implements ContainerInterface
      * This is called to leave the current scope, and move back to the parent
      * scope.
      *
-     * @param string $name The name of the scope to leave
      * @return void
-     * @throws \InvalidArgumentException if the scope is not active
      */
     public function leaveScope($name)
     {
@@ -334,16 +332,14 @@ class Container implements ContainerInterface
     }
 
     /**
-     * Adds a scope to the container.
+     * Adds a scope to the container
      *
-     * @param ScopeInterface $scope
+     * @param string $name
+     * @param string $parentScope
      * @return void
      */
-    public function addScope(ScopeInterface $scope)
+    public function addScope($name, $parentScope = self::SCOPE_CONTAINER)
     {
-        $name = $scope->getName();
-        $parentScope = $scope->getParentName();
-
         if (self::SCOPE_CONTAINER === $name || self::SCOPE_PROTOTYPE === $name) {
             throw new \InvalidArgumentException(sprintf('The scope "%s" is reserved.', $name));
         }
@@ -367,7 +363,6 @@ class Container implements ContainerInterface
     /**
      * Returns whether this container has a certain scope
      *
-     * @param string $name The name of the scope
      * @return Boolean
      */
     public function hasScope($name)
@@ -388,23 +383,11 @@ class Container implements ContainerInterface
         return isset($this->scopedServices[$name]);
     }
 
-    /**
-     * Camelizes a string.
-     *
-     * @param string $id A string to camelize
-     * @return string The camelized string
-     */
     static public function camelize($id)
     {
         return preg_replace(array('/(?:^|_)+(.)/e', '/\.(.)/e'), array("strtoupper('\\1')", "'_'.strtoupper('\\1')"), $id);
     }
 
-    /**
-     * A string to underscore.
-     *
-     * @param string $id The string to underscore
-     * @return string The underscored string
-     */
     static public function underscore($id)
     {
         return strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), array('\\1_\\2', '\\1_\\2'), strtr($id, '_', '.')));

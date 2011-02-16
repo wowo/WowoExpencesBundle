@@ -13,7 +13,6 @@ namespace Symfony\Component\Templating\Loader;
 
 use Symfony\Component\Templating\Storage\Storage;
 use Symfony\Component\Templating\Storage\FileStorage;
-use Symfony\Component\Templating\TemplateReferenceInterface;
 
 /**
  * CacheLoader is a loader that caches other loaders responses
@@ -44,20 +43,20 @@ class CacheLoader extends Loader
     /**
      * Loads a template.
      *
-     * @param TemplateReferenceInterface $template A template
+     * @param array $template The template name as an array
      *
      * @return Storage|Boolean false if the template cannot be loaded, a Storage instance otherwise
      */
-    public function load(TemplateReferenceInterface $template)
+    public function load($template)
     {
-        $key = $template->getSignature();
-        $dir = $this->dir.DIRECTORY_SEPARATOR.substr($key, 0, 2);
-        $file = substr($key, 2).'.tpl';
+        $tmp = md5(serialize($template)).'.tpl';
+        $dir = $this->dir.DIRECTORY_SEPARATOR.substr($tmp, 0, 2);
+        $file = substr($tmp, 2);
         $path = $dir.DIRECTORY_SEPARATOR.$file;
 
         if (file_exists($path)) {
             if (null !== $this->debugger) {
-                $this->debugger->log(sprintf('Fetching template "%s" from cache', $template->get('name')));
+                $this->debugger->log(sprintf('Fetching template "%s" from cache', $template['name']));
             }
 
             return new FileStorage($path);
@@ -76,7 +75,7 @@ class CacheLoader extends Loader
         file_put_contents($path, $content);
 
         if (null !== $this->debugger) {
-            $this->debugger->log(sprintf('Storing template "%s" in cache', $template->get('name')));
+            $this->debugger->log(sprintf('Storing template "%s" in cache', $template['name']));
         }
 
         return new FileStorage($path);
@@ -85,10 +84,10 @@ class CacheLoader extends Loader
     /**
      * Returns true if the template is still fresh.
      *
-     * @param TemplateReferenceInterface    $template A template
-     * @param integer                       $time     The last modification time of the cached template (timestamp)
+     * @param array     $template The template name as an array
+     * @param timestamp $time     The last modification time of the cached template
      */
-    public function isFresh(TemplateReferenceInterface $template, $time)
+    public function isFresh($template, $time)
     {
         return $this->loader->isFresh($template, $time);
     }

@@ -1,3 +1,3 @@
-doctrine_mongo_db:
+doctrine_odm.mongodb:
   auto_generate_proxy_classes: false
   metadata_cache_driver: apc

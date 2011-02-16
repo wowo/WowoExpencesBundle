@@ -25,10 +25,26 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class DoctrineBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function registerExtensions(ContainerBuilder $container)
     {
-        parent::build($container);
+        parent::registerExtensions($container);
 
         $container->addCompilerPass(new RegisterEventListenersAndSubscribersPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPath()
+    {
+        return __DIR__;
     }
 }
