@@ -1,7 +1,7 @@
 <?php
 
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\DependencyInjection\Loader\LoaderInterface;
+use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
@@ -13,12 +13,13 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\ZendBundle\ZendBundle(),
             new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
+            new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Application\ExpencesBundle\ExpencesBundle(),
             new Application\GuardBundle\GuardBundle(),
         );
 
         if ('dev' === $this->getEnvironment()) {
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+            //$bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
         }
 
         return $bundles;

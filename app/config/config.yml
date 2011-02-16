@@ -1,4 +1,4 @@
-app.config:
+framework:
   charset:       UTF-8
   error_handler: null
   csrf_secret:   xxxxxxxxxx
@@ -11,11 +11,11 @@ app.config:
     lifetime:       3600
     auto_start:     true
 
-twig.config:
+twig:
   debug:            %kernel.debug%
   strict_variables: %kernel.debug%
 
-doctrine_odm.mongodb:
+doctrine_mongo_db:
   auto_generate_hydrator_classes: true
   auto_generate_proxy_classes: true
   mappings:
@@ -24,7 +24,11 @@ doctrine_odm.mongodb:
   #server: "mongodb://localhost/expences"
   server: "mongodb://exp:asdf@flame.mongohq.com:27088/expences"
 
-security.config:
+doctrine:
+  dbal:
+    default_connection: ~
+
+security:
   providers:
     default:
       document: {class: ExpencesBundle:User, property: username}

@@ -1,5 +1,6 @@
 <?php
 namespace Application\ExpencesBundle\Controller;
+use Application\ExpencesBundle\Document\User;
 use Application\ExpencesBundle\Form\Operation as OperationForm;
 use Application\ExpencesBundle\Form\OperationTag;
 use Application\ExpencesBundle\Form\Upload;
@@ -31,10 +32,12 @@ class OperationsController extends Controller
   public function indexAction()
   {
     $dm = $this->get("doctrine.odm.mongodb.document_manager");
+    $token = $this->get("security.context")->getToken();
+
     $search = $this->get("request")->query->get("query");
     $tag    = $this->get("request")->query->get("tag");
-    $user   = $this->get('security.context')->getUser();
-    if ($user) {
+    $user   = $token ? $token->getUser() : null;
+    if ($user instanceof User) {
       $operations = $dm->getRepository(self::REPO)->getOperationsForUser($user, $tag, $search);
     } else {
       $operations = array();

@@ -2,6 +2,7 @@
 namespace Application\GuardBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Application\ExpencesBundle\Document\User;
 
 /**
  * AuthController 
@@ -45,9 +46,10 @@ class AuthController extends Controller
    */
   public function loggedAction()
   {
-    if ($this->get("security.context")->getUser()) {
+    $token = $this->get("security.context")->getToken();
+    if ($token && $token->getUser() instanceof User) {
       return $this->render("GuardBundle:Auth:logged.twig.html", array(
-        "username" => $this->get("security.context")->getUser()->getUsername(),
+        "username" => $token->getUser()->getUsername(),
       ));
     } else {
       return $this->createResponse("");
