@@ -5,7 +5,7 @@ h1, #bottom {font-family: Orbitron, "Tahoma", sans-serif;}
 #content {padding: 30px;}
 #bottom {margin: 20px 0 0 0; text-align: center; font-size: 9pt; letter-spacing: 1.5pt;}
 
-table {border: 1px solid #b9b9b9; border-collapse:collapse; margin-top: 10px;}
+table {border: 1px solid #b9b9b9; border-collapse:collapse; margin-top: 10px; width: 100%;}
 table tr {border-bottom: 1px solid #b9b9b9;}
 thead, tfoot {background: #d9d7d8;}
 thead th {padding: 10px; text-transform: uppercase; text-align: left; color: #474548;}
@@ -34,6 +34,7 @@ button {border: none; padding: 8px 20px; color: #ffffff; background: #f7941d; fo
 
 .link-tags {background: url('fugue-icons/icons/tags-label.png') no-repeat; padding-left: 20px;}
 .tag {background: url('fugue-icons/icons/tag-medium.png') no-repeat; padding-left: 15px;}
+.tags-edit {float: right; display: none; height: 14px; width: 14px;}
 
 #flot_graph {width: 100%; height: 450px;}
 #flot_tooltip {position: absolute; border: 1px solid #ffdddd; padding: 2px; background: #ffeeee; opacity: 0.70;}

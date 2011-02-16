@@ -49,29 +49,42 @@ class OperationsController extends Controller
   }
 
   /**
-   * Manages tags of given operation
+   * Save Tags Action 
    * 
-   * @param mixed $operationId 
    * @access public
    * @return void
    */
-  public function manageTagsAction($operationId)
+  public function saveTagsAction()
   {
     $dm = $this->get('doctrine.odm.mongodb.document_manager');
-    $operation = $dm->find('Application\ExpencesBundle\Document\Operation', $operationId);
-    $form      = new OperationTag("operation", $operation, $this->get("validator"));
-    if ($this->get("request")->getMethod() == "POST") {
-        $form->bind($this->get("request")->request->get("operation"));
-        if ($form->isValid()) {
-          $form->process($operation, $dm);
-          return $this->redirect($this->generateUrl('operations'));
-        }
-    }
-
+    $operation = $dm->find('Application\ExpencesBundle\Document\Operation', $this->get("request")->request->get("id"));
+    $operation->tags = $this->getTagsFromRequest($this->get("request"));
+    $dm->persist($operation);
+    $dm->flush();
     return $this->render(
-      "ExpencesBundle:Operations:manageTags.twig.html",
-      array("operation" => $operation, "form" => $form)
+      "ExpencesBundle::tags.twig.html",
+      array("tags" => $operation->tags)
     );
+  }
+
+  /**
+   * Gets tags from request
+   * 
+   * @param mixed $request 
+   * @access protected
+   * @return void
+   */
+  protected function getTagsFromRequest($request)
+  {
+    $tags = $request->request->get("tags");
+    $tags = explode(",", $tags);
+    $tags = array_map("trim", $tags);
+    foreach ($tags as $key => $tag) {
+      if (strlen($tag) == 0) {
+        unset($tags[$key]);
+      }
+    }
+    return $tags;
   }
 
   /**

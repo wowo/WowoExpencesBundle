@@ -10,6 +10,10 @@ manage_tags:
   pattern: /manage/tags/{operationId}
   defaults: {_controller: ExpencesBundle:Operations:manageTags}
 
+save_tags:
+  pattern: /tags/save
+  defaults: {_controller: ExpencesBundle:Operations:saveTags}
+
 upload:
   pattern: /upload
   defaults: {_controller: ExpencesBundle:Operations:upload}

@@ -19,25 +19,29 @@
         <th>Description</th>
         <th>Amount</th>
         <th>Tags</th>
-        <th>Actions</th>
       </tr>
     </thead>
     <tfoot>
       <tr>
-        <th colspan="6">Total operations count: {{ operations|length }}</th>
+        <th colspan="5">Total operations count: {{ operations|length }}</th>
       </tr>
     </tfoot>
     <tbody>
       {% for operation in operations %}
-        <tr>
+        <tr id="id_{{ operation.id }}">
           <td>{{ operation.dateOperation|date("Y-m-d") }}</td>
           <td>{{ operation.type|lower }}</td>
           <td>{{ operation.description|lower }}</td>
           <td class="right">{{ operation.getPricePlnFormatted() }}</td>
-          <td>{% include "ExpencesBundle::tags.twig.html" with {"tags" : operation.tags} %}</td>
-          <td><a href="{{ path('manage_tags', {'operationId': operation.id}) }}" class="link-tags">tags</a></td>
+          <td class="tags">
+            <span class="tags-container">{% include "ExpencesBundle::tags.twig.html" with {"tags" : operation.tags} %}</span>
+            <a href="#" class="tags-edit"><img src="/css/fugue-icons/icons/pencil.png"/></a></td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="/js/operations.js"></script>
 {% endblock %}
