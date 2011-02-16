@@ -5,7 +5,7 @@ h1, #bottom {font-family: Orbitron, "Tahoma", sans-serif;}
 #content {padding: 30px;}
 #bottom {margin: 20px 0 0 0; text-align: center; font-size: 9pt; letter-spacing: 1.5pt;}
 
-table {border: 1px solid #b9b9b9; border-collapse:collapse; margin-top: 10px; width: 100%;}
+table {border: 1px solid #b9b9b9; border-collapse:collapse; margin-top: 10px;}
 table tr {border-bottom: 1px solid #b9b9b9;}
 thead, tfoot {background: #d9d7d8;}
 thead th {padding: 10px; text-transform: uppercase; text-align: left; color: #474548;}
@@ -41,3 +41,5 @@ button {border: none; padding: 8px 20px; color: #ffffff; background: #f7941d; fo
 
 #operation_new label {width: 120px; display: inline-block;}
 #operation_new div {margin: 5px;}
+
+table#operations {width: 100%;}
