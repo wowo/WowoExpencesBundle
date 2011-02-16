@@ -21,7 +21,6 @@ doctrine_odm.mongodb:
   mappings:
     ExpencesBundle: {type: annotation}
   default_database: expences
-  #server: "mongodb://localhost/expences"
   connections:
     default:
       server: "mongodb://exp:asdf@flame.mongohq.com:27088/expences"
