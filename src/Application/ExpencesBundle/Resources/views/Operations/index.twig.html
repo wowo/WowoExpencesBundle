@@ -3,17 +3,26 @@
 {% block page_title %}<h2>Operations</h2>{% endblock %}
 
 {% block content%}
-  {% include "ExpencesBundle::filter.twig.html" with {"search": search} %}
+  <form action="" method="get">
+    <fieldset>
+      <label>Search<br /><input type="text" name="query" placeholder="Query" value="{{ search }}"/></label>
+      <button>Search</button>
+    </fieldset>
+  </form>
+  <br />
+  <a href="#" class="multi-tags">Tag multiple operations</a>
   <table cellspacing="0" id="operations">
     <colgroup>
+      <col width="3%"/>
       <col width="10%" />
-      <col width="30%" />
+      <col width="27%" />
       <col width="30%" />
       <col width="10%" />
       <col width="20%" />
     </colgroup>
     <thead>
       <tr>
+        <th><input type="checkbox" id="toggle-all" title="Toggle all"/></th>
         <th>Date</th>
         <th>Type</th>
         <th>Description</th>
@@ -23,23 +32,30 @@
     </thead>
     <tfoot>
       <tr>
-        <th colspan="5">Total operations count: {{ operations|length }}</th>
+        <th colspan="6">Total operations count: {{ operations|length }}</th>
       </tr>
     </tfoot>
     <tbody>
       {% for operation in operations %}
         <tr id="id_{{ operation.id }}">
-          <td>{{ operation.dateOperation|date("Y-m-d") }}</td>
-          <td>{{ operation.type|lower }}</td>
-          <td>{{ operation.description|lower }}</td>
-          <td class="right">{{ operation.getPricePlnFormatted() }}</td>
+          <td><input type="checkbox" name="operation[{{ operation.id }}]" /></td>
+          <td class="checkbox-click">{{ operation.dateOperation|date("Y-m-d") }}</td>
+          <td class="checkbox-click">{{ operation.type|lower }}</td>
+          <td class="checkbox-click">{{ operation.description|lower }}</td>
+          <td class="right checkbox-click">{{ operation.getPricePlnFormatted() }}</td>
           <td class="tags">
             <span class="tags-container">{% include "ExpencesBundle::tags.twig.html" with {"tags" : operation.tags} %}</span>
-            <a href="#" class="tags-edit"><img src="/css/fugue-icons/icons/pencil.png"/></a></td>
+            <a href="" class="tags-edit"><img src="/css/fugue-icons/icons/pencil.png"/></a></td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="6" class="center"><strong>No operations found</strong></td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
+  <br />
+  <a href="#" class="multi-tags">Tag multiple operations</a>
 {% endblock %}
 
 {% block scripts %}

@@ -61,12 +61,31 @@ class OperationsController extends Controller
     $operation->tags = $this->getTagsFromRequest($this->get("request"));
     $dm->persist($operation);
     $dm->flush();
+
     return $this->render(
       "ExpencesBundle::tags.twig.html",
       array("tags" => $operation->tags)
     );
   }
 
+  /**
+   * Adds tags for multiple operations
+   * 
+   * @access public
+   * @return void
+   */
+  public function multiTagsAction()
+  {
+    $dm   = $this->get('doctrine.odm.mongodb.document_manager');
+    $ids  = $this->get("request")->request->get("ids");
+    $tags = $this->getTagsFromRequest($this->get("request"));
+    $dm->getRepository(self::REPO)->addTagsForOperations($ids, $tags);
+
+    return $this->render(
+      "ExpencesBundle::tags.twig.html",
+      array("tags" => $tags)
+    );
+  }
   /**
    * Gets tags from request
    * 
@@ -84,7 +103,7 @@ class OperationsController extends Controller
         unset($tags[$key]);
       }
     }
-    return $tags;
+    return array_unique($tags);
   }
 
   /**

@@ -6,13 +6,13 @@ operation_new:
   pattern:  /new
   defaults: { _controller: ExpencesBundle:Operations:new}
 
-manage_tags:
-  pattern: /manage/tags/{operationId}
-  defaults: {_controller: ExpencesBundle:Operations:manageTags}
-
 save_tags:
   pattern: /tags/save
   defaults: {_controller: ExpencesBundle:Operations:saveTags}
+
+multi_tags:
+  pattern: /tags/multi
+  defaults: {_controller: ExpencesBundle:Operations:multiTags}
 
 upload:
   pattern: /upload

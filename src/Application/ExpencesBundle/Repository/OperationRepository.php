@@ -16,6 +16,36 @@ use Application\ExpencesBundle\Document\User;
 class OperationRepository extends DocumentRepository
 {
   /**
+   * Adds few tags for given by ids operations
+   * 
+   * @param array $ids 
+   * @param array $tags 
+   * @access public
+   * @return void
+   */
+  public function addTagsForOperations(array $ids, array $tags)
+  {
+    if (count($tags) > 0 && count($ids) > 0) {
+      $mongoIds = array();
+      foreach ($ids as $id) {
+        $mongoIds[] = new \MongoId($id);
+      }
+      $query = $this->createQueryBuilder();
+      $query->field("id")->in($mongoIds);
+      $operations = $query->getQuery()->execute();
+      if (count($operations) == 0) {
+        throw new \RuntimeException("Couldn't retrieve given operations");
+      }
+      foreach ($operations as $operation) {
+        $newTags = is_array($operation->tags) ? array_merge($operation->tags, $tags) : $tags;
+        $newTags = array_unique($newTags);
+        $operation->tags = $newTags;
+        $this->dm->persist($operation);
+      }
+      $this->dm->flush();
+    }
+  }
+  /**
    * getOperationsForUser 
    * 
    * @param User $user 
@@ -120,6 +150,7 @@ class OperationRepository extends DocumentRepository
     }
     return $result;
   }
+
   /**
    * _getOperationsSummary 
    * 
