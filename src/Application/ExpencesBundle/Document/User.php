@@ -1,6 +1,6 @@
 <?php
 namespace Application\ExpencesBundle\Document;
-use Symfony\Component\Security\Core\User\AccountInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Use 
@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\AccountInterface;
  * @author Wojciech Sznapka <wojciech@sznapka.pl> 
  * @license 
  */
-class User implements AccountInterface
+class User implements UserInterface
 {
   /**
    * @mongodb:Id
@@ -57,7 +57,7 @@ class User implements AccountInterface
   {
   }
 
-  function equals(AccountInterface $account)
+  function equals(UserInterface $account)
   {
     return $this->username == $account->username;
   }

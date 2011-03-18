@@ -1,26 +1,29 @@
-app.config:
+framework:
   charset:       UTF-8
   error_handler: null
-  csrf_secret:   xxxxxxxxxx
+  csrf_protection:
+    enabled: true
+    secret: xxxxxxxxxx
   router:        { resource: "%kernel.root_dir%/config/routing.yml" }
   validation:    { enabled: true, annotations: true }
   templating:    { engines: ['twig'] } #assets_version: SomeVersionScheme
-  security:      {}
   session:
     default_locale: en
     lifetime:       3600
     auto_start:     true
 
-twig.config:
+twig:
   debug:            %kernel.debug%
   strict_variables: %kernel.debug%
 
-doctrine_odm.mongodb:
+doctrine_mongo_db:
   auto_generate_hydrator_classes: true
   auto_generate_proxy_classes: true
-  mappings:
-    ExpencesBundle: {type: annotation}
   default_database: expences
+  document_managers:
+    default:
+      mappings:
+        ExpencesBundle: {type: annotation}
   connections:
     default:
       server: "mongodb://exp:asdf@flame.mongohq.com:27088/expences"
@@ -31,10 +34,10 @@ doctrine_odm.mongodb:
 #  dbal:
 #    default_connection: ~
 
-security.config:
+security:
   providers:
-    default:
-      document: {class: ExpencesBundle:User, property: username}
+    custom_provider:
+      id: exp.mongodb.provider
   encoders:
     "Application\ExpencesBundle\Document\User": sha1
   firewalls:
@@ -47,3 +50,8 @@ security.config:
       form_login:
         always_use_default_target_path: true
         default_target_path: /
+
+services:
+  exp.mongodb.provider:
+    parent: doctrine.odm.mongodb.security.user.provider
+    arguments: [ExpencesBundle:User, username]

@@ -1,5 +1,6 @@
 <?php
 
+require_once(__DIR__ .'/../vendor/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php');
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 $vendorDir = __DIR__.'/../vendor';
 
@@ -14,7 +15,7 @@ $loader->registerNamespaces(array(
     'Doctrine\\ODM\\MongoDB'         => $vendorDir.'/doctrine-mongodb-odm/lib',
     'Doctrine\\DBAL'                 => $vendorDir.'/doctrine-dbal/lib',
     'Doctrine'                       => $vendorDir.'/doctrine/lib',
-    'Zend'                           => $vendorDir.'/zend/library',
+    'Zend\\Log'                      => __DIR__.'/../vendor/zend-log',
 ));
 $loader->registerPrefixes(array(
     'Swift_'           => $vendorDir.'/swiftmailer/lib/classes',

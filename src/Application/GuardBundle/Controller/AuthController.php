@@ -2,6 +2,7 @@
 namespace Application\GuardBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Response;
 use Application\ExpencesBundle\Document\User;
 
 /**
@@ -52,7 +53,7 @@ class AuthController extends Controller
         "username" => $token->getUser()->getUsername(),
       ));
     } else {
-      return $this->createResponse("");
+      return new Response("");
     }
   }
 }
