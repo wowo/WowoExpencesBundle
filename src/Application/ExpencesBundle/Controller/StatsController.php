@@ -28,7 +28,7 @@ class StatsController extends Controller
     $current = $this->get("request")->attributes->get("_route");
 
     return $this->render(
-      "ExpencesBundle:Stats:tagsGraph.twig.html",
+      "Expences:Stats:tagsGraph.twig.html",
       array("rows" => $rows, "title" => "Monthly tags summary", "current" => $current)
     );
   }
@@ -54,7 +54,7 @@ class StatsController extends Controller
     }
 
     return $this->render(
-      "ExpencesBundle:Stats:menu.twig.html",
+      "Expences:Stats:menu.twig.html",
       array("items" => $items)
     );
   }
@@ -72,7 +72,7 @@ class StatsController extends Controller
     $current = $this->get("request")->attributes->get("_route");
 
     return $this->render(
-      "ExpencesBundle:Stats:statsGraph.twig.html",
+      "Expences:Stats:statsGraph.twig.html",
       array("rows" => $rows, "title" => "Monthly expences graph", "current" => $current)
     );
   }
@@ -90,7 +90,7 @@ class StatsController extends Controller
     $current = $this->get("request")->attributes->get("_route");
 
     return $this->render(
-      "ExpencesBundle:Stats:statsGraph.twig.html",
+      "Expences:Stats:statsGraph.twig.html",
       array("rows" => $rows, "title" => "Yearly expences graph", "current" => $current)
     );
   }

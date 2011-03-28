@@ -1,8 +1,8 @@
-{% extends "ExpencesBundle::layout.html.twig" %}
+{% extends "Expences::layout.html.twig" %}
 
 {% block page_title %}
   <h2>{{ title }}</h2>
-  {% render "ExpencesBundle:Stats:menu" with {'current': current} %}
+  {% render "Expences:Stats:menu" with {'current': current} %}
 {% endblock %}
 
 {% block content %}

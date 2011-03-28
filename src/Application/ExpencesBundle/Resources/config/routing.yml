@@ -1,31 +1,31 @@
 operations:
   pattern:  /
-  defaults: { _controller: ExpencesBundle:Operations:index}
+  defaults: { _controller: Expences:Operations:index}
 
 operation_new:
   pattern:  /new
-  defaults: { _controller: ExpencesBundle:Operations:new}
+  defaults: { _controller: Expences:Operations:new}
 
 save_tags:
   pattern: /tags/save
-  defaults: {_controller: ExpencesBundle:Operations:saveTags}
+  defaults: {_controller: Expences:Operations:saveTags}
 
 multi_tags:
   pattern: /tags/multi
-  defaults: {_controller: ExpencesBundle:Operations:multiTags}
+  defaults: {_controller: Expences:Operations:multiTags}
 
 upload:
   pattern: /upload
-  defaults: {_controller: ExpencesBundle:Operations:upload}
+  defaults: {_controller: Expences:Operations:upload}
 
 stats_monthly_graph:
   pattern: /stats/monthly/graph
-  defaults: {_controller: ExpencesBundle:Stats:monthlyGraph}
+  defaults: {_controller: Expences:Stats:monthlyGraph}
 
 stats_yearly_graph:
   pattern: /stats/yearly/graph
-  defaults: {_controller: ExpencesBundle:Stats:yearlyGraph}
+  defaults: {_controller: Expences:Stats:yearlyGraph}
 
 tags_monthly_graph:
   pattern: /stats/tags/graph
-  defaults: {_controller: ExpencesBundle:Stats:tagsGraph}
+  defaults: {_controller: Expences:Stats:tagsGraph}

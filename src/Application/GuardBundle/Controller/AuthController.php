@@ -32,7 +32,7 @@ class AuthController extends Controller
           $error = $this->get("request")->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
       }
 
-      return $this->render("GuardBundle:Auth:login.twig.html", array(
+      return $this->render("Guard:Auth:login.twig.html", array(
           // last username entered by the user
           "last_username" => $this->get("request")->getSession()->get(SecurityContext::LAST_USERNAME),
           "error"         => $error,
@@ -49,7 +49,7 @@ class AuthController extends Controller
   {
     $token = $this->get("security.context")->getToken();
     if ($token && $token->getUser() instanceof User) {
-      return $this->render("GuardBundle:Auth:logged.twig.html", array(
+      return $this->render("Guard:Auth:logged.twig.html", array(
         "username" => $token->getUser()->getUsername(),
       ));
     } else {

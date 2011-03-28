@@ -23,7 +23,7 @@ doctrine_mongo_db:
   document_managers:
     default:
       mappings:
-        ExpencesBundle: {type: annotation}
+        Expences: {type: annotation}
   connections:
     default:
       server: "mongodb://exp:asdf@flame.mongohq.com:27088/expences"
@@ -48,10 +48,15 @@ security:
       pattern: .*
       logout: true
       form_login:
-        always_use_default_target_path: true
-        default_target_path: /
+        check_path:                     /login_check
+        login_path:                     /login
+        failure_path:                   null
+        always_use_default_target_path: false
+        default_target_path:            /
+        target_path_parameter:          _target_path
+        use_referer:                    false
 
 services:
   exp.mongodb.provider:
     parent: doctrine.odm.mongodb.security.user.provider
-    arguments: [ExpencesBundle:User, username]
+    arguments: [Expences:User, username]

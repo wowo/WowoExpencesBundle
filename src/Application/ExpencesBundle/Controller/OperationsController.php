@@ -43,7 +43,7 @@ class OperationsController extends Controller
       $operations = array();
     }
     return $this->render(
-      "ExpencesBundle:Operations:index.twig.html", 
+      "Expences:Operations:index.twig.html", 
       array("operations" => $operations, "search" => $search, "tag" => $tag)
     );
   }
@@ -63,7 +63,7 @@ class OperationsController extends Controller
     $dm->flush();
 
     return $this->render(
-      "ExpencesBundle::tags.twig.html",
+      "Expences::tags.twig.html",
       array("tags" => $operation->tags)
     );
   }
@@ -82,7 +82,7 @@ class OperationsController extends Controller
     $dm->getRepository(self::REPO)->addTagsForOperations($ids, $tags);
 
     return $this->render(
-      "ExpencesBundle::tags.twig.html",
+      "Expences::tags.twig.html",
       array("tags" => $tags)
     );
   }
@@ -130,7 +130,7 @@ class OperationsController extends Controller
     }
 
     return $this->render(
-      "ExpencesBundle:Operations:new.twig.html",
+      "Expences:Operations:new.twig.html",
       array("form" => $form)
     );
   }
@@ -159,7 +159,7 @@ class OperationsController extends Controller
     }
 
     return $this->render(
-      "ExpencesBundle:Operations:upload.twig.html",
+      "Expences:Operations:upload.twig.html",
       array("form" => $form)
     );
   }

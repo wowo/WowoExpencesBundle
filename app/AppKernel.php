@@ -8,14 +8,14 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
+            new Application\ExpencesBundle\ExpencesBundle(),
+            new Application\GuardBundle\GuardBundle(),
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\ZendBundle\ZendBundle(),
             new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Application\ExpencesBundle\ExpencesBundle(),
-            new Application\GuardBundle\GuardBundle(),
         );
 
         if ('dev' === $this->getEnvironment()) {

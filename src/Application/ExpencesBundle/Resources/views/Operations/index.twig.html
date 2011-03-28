@@ -1,4 +1,4 @@
-{% extends "ExpencesBundle::layout.html.twig" %}
+{% extends "Expences::layout.html.twig" %}
 
 {% block page_title %}<h2>Operations</h2>{% endblock %}
 
@@ -44,7 +44,7 @@
           <td class="checkbox-click">{{ operation.description|lower }}</td>
           <td class="right checkbox-click">{{ operation.getPricePlnFormatted() }}</td>
           <td class="tags">
-            <span class="tags-container">{% include "ExpencesBundle::tags.twig.html" with {"tags" : operation.tags} %}</span>
+            <span class="tags-container">{% include "Expences::tags.twig.html" with {"tags" : operation.tags} %}</span>
             <a href="" class="tags-edit"><img src="/css/fugue-icons/icons/pencil.png"/></a></td>
         </tr>
       {% else %}
