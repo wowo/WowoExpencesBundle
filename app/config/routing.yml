@@ -1,9 +1,0 @@
-_security_login:
-  pattern: /login
-  defaults: {_controller: Guard:Auth:login}
-
-_security_check:
-  pattern: /login_check
-
-_expences:
-  resource: @Expences/Resources/config/routing.yml
