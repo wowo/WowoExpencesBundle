@@ -1,0 +1,28 @@
+Expences Bundle
+===============
+
+Allows to control and visualise your daily expences
+
+Installation
+------------
+
+# Add entry to deps file
+    [WowoExpencesBundle]
+        git=/home/wowo/localhost/WowoExpencesBundle/
+        target=/bundles/Wowo/ExpencesBundle
+
+# Update vendors
+    ./bin/vendors update
+
+# Update autoloader script (app/autoload.php)
+    $loader->registerNamespaces(array(
+        'Wowo'             => __DIR__.'/../vendor/bundles',
+        // [...]
+    ));
+
+# Turn on bundle in Kernel (app/AppKernel.php)
+    $bundles = array(
+        new Wowo\ExpencesBundle\WowoExpencesBundle(),
+        // [...]
+    );
+
