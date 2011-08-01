@@ -1,7 +1,7 @@
 <?php
-namespace Application\ExpencesBundle\Controller;
+namespace Wowo\ExpencesBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Application\ExpencesBundle\Document\Operation;
+use Wowo\ExpencesBundle\Document\Operation;
 
 /**
  * StatsController 
@@ -24,7 +24,7 @@ class StatsController extends Controller
   public function tagsGraphAction()
   {
     $dm = $this->get('doctrine.odm.mongodb.document_manager');
-    $rows = $dm->getRepository("Application\ExpencesBundle\Document\Operation")->getTagsOperationsSummary();
+    $rows = $dm->getRepository("Wowo\ExpencesBundle\Document\Operation")->getTagsOperationsSummary();
     $current = $this->get("request")->attributes->get("_route");
 
     return $this->render(
@@ -68,7 +68,7 @@ class StatsController extends Controller
   public function monthlyGraphAction()
   {
     $dm = $this->get('doctrine.odm.mongodb.document_manager');
-    $rows = $dm->getRepository("Application\ExpencesBundle\Document\Operation")->getMonthlyOperationsSummary();
+    $rows = $dm->getRepository("Wowo\ExpencesBundle\Document\Operation")->getMonthlyOperationsSummary();
     $current = $this->get("request")->attributes->get("_route");
 
     return $this->render(
@@ -86,7 +86,7 @@ class StatsController extends Controller
   public function yearlyGraphAction()
   {
     $dm = $this->get('doctrine.odm.mongodb.document_manager');
-    $rows = $dm->getRepository("Application\ExpencesBundle\Document\Operation")->getYearlyOperationsSummary();
+    $rows = $dm->getRepository("Wowo\ExpencesBundle\Document\Operation")->getYearlyOperationsSummary();
     $current = $this->get("request")->attributes->get("_route");
 
     return $this->render(

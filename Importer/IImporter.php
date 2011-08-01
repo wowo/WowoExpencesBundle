@@ -1,5 +1,5 @@
 <?php
-namespace Application\ExpencesBundle\Importer;
+namespace Wowo\ExpencesBundle\Importer;
 
 /**
  * IImporter 

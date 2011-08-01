@@ -1,13 +1,13 @@
 <?php
-namespace Application\ExpencesBundle\Command;
+namespace Wowo\ExpencesBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Application\ExpencesBundle\Runner\Runner;
+use Wowo\ExpencesBundle\Runner\Runner;
 
 /**
  * ImportOperationsCommand 
@@ -19,7 +19,7 @@ use Application\ExpencesBundle\Runner\Runner;
  * @author Wojciech Sznapka <wojciech@sznapka.pl> 
  * @license 
  */
-class ImportOperationsCommand extends Command
+class ImportOperationsCommand extends ContainerAwareCommand
 {
   /**
    * configure 

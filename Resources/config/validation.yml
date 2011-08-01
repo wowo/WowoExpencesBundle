@@ -1,4 +1,4 @@
-Application\ExpencesBundle\Document\Operation:
+Wowo\ExpencesBundle\Document\Operation:
   properties:
     dateOperation:
       - DateTime: ~

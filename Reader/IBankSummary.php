@@ -1,5 +1,5 @@
 <?php
-namespace Application\ExpencesBundle\Reader;
+namespace Wowo\ExpencesBundle\Reader;
 
 /**
  * IBankSummary 

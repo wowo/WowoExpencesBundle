@@ -1,7 +1,7 @@
 <?php
-namespace Application\ExpencesBundle\Importer;
-use Application\ExpencesBundle\Importer\IImporter;
-use Application\ExpencesBundle\Document\Operation;
+namespace Wowo\ExpencesBundle\Importer;
+use Wowo\ExpencesBundle\Importer\IImporter;
+use Wowo\ExpencesBundle\Document\Operation;
 
 /**
  * Imports operations to MongoDB

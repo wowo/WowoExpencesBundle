@@ -1,8 +1,8 @@
 <?php
-namespace Application\ExpencesBundle\Reader\Mbank;
-use Application\ExpencesBundle\Reader\BankSummary;
-use Application\ExpencesBundle\Reader\IBankSummary;
-use Application\ExpencesBundle\Document\Operation;
+namespace Wowo\ExpencesBundle\Reader\Mbank;
+use Wowo\ExpencesBundle\Reader\BankSummary;
+use Wowo\ExpencesBundle\Reader\IBankSummary;
+use Wowo\ExpencesBundle\Document\Operation;
 
 /**
  * Reads mbank credit card summaries

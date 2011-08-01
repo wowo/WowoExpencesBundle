@@ -1,6 +1,6 @@
 <?php
-namespace Application\ExpencesBundle\Form;
-use Application\ExpencesBundle\Document\Operation as OperationDocument;
+namespace Wowo\ExpencesBundle\Form;
+use Wowo\ExpencesBundle\Document\Operation as OperationDocument;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\TextField;
 use Symfony\Component\Form\DateField;

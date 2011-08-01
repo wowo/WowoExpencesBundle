@@ -1,7 +1,7 @@
 <?php
-namespace Application\ExpencesBundle\Factories;
-use Application\ExpencesBundle\Reader\Mbank\Credit;
-use Application\ExpencesBundle\Reader\Mbank\CurrentAccount;
+namespace Wowo\ExpencesBundle\Factories;
+use Wowo\ExpencesBundle\Reader\Mbank\Credit;
+use Wowo\ExpencesBundle\Reader\Mbank\CurrentAccount;
 
 /**
  * Bank Summary Reader factory

@@ -1,13 +1,12 @@
 <?php
-namespace Application\ExpencesBundle\Command;
+namespace Wowo\ExpencesBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\Command;
-use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Application\ExpencesBundle\Document\Operation;
+use Wowo\ExpencesBundle\Document\Operation;
 
 /**
  * ImportOperationsCommand 
@@ -19,7 +18,7 @@ use Application\ExpencesBundle\Document\Operation;
  * @author Wojciech Sznapka <wojciech@sznapka.pl> 
  * @license 
  */
-class GenerateRandomDataCommand extends Command
+class GenerateRandomDataCommand extends ContainerAwareCommand
 {
   /**
    * configure 
@@ -46,8 +45,7 @@ class GenerateRandomDataCommand extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $output->writeLn("<info>Generating data</info>");
-    $container = $this->application->getKernel()->getContainer();
-    $dm = $container->get('doctrine.odm.mongodb.document_manager');
+    $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
 
 
     $tags = array("paliwo", "zakupy", "rozrywka");

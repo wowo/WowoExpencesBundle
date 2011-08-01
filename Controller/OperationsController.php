@@ -1,12 +1,12 @@
 <?php
-namespace Application\ExpencesBundle\Controller;
-use Application\ExpencesBundle\Document\User;
-use Application\ExpencesBundle\Form\Operation as OperationForm;
-use Application\ExpencesBundle\Form\OperationTag;
-use Application\ExpencesBundle\Form\Upload;
-use Application\ExpencesBundle\Document\Operation;
-use Application\ExpencesBundle\Factories\BankSummaryReader;
-use Application\ExpencesBundle\Importer\Mongo as MongoImporter;
+namespace Wowo\ExpencesBundle\Controller;
+use Wowo\ExpencesBundle\Document\User;
+use Wowo\ExpencesBundle\Form\Operation as OperationForm;
+use Wowo\ExpencesBundle\Form\OperationTag;
+use Wowo\ExpencesBundle\Form\Upload;
+use Wowo\ExpencesBundle\Document\Operation;
+use Wowo\ExpencesBundle\Factories\BankSummaryReader;
+use Wowo\ExpencesBundle\Importer\Mongo as MongoImporter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class OperationsController extends Controller
 {
-  const REPO = "Application\ExpencesBundle\Document\Operation";
+  const REPO = "Wowo\ExpencesBundle\Document\Operation";
 
   /**
    * Displays all operations
@@ -57,7 +57,7 @@ class OperationsController extends Controller
   public function saveTagsAction()
   {
     $dm = $this->get('doctrine.odm.mongodb.document_manager');
-    $operation = $dm->find('Application\ExpencesBundle\Document\Operation', $this->get("request")->request->get("id"));
+    $operation = $dm->find('Wowo\ExpencesBundle\Document\Operation', $this->get("request")->request->get("id"));
     $operation->tags = $this->getTagsFromRequest($this->get("request"));
     $dm->persist($operation);
     $dm->flush();

@@ -1,5 +1,5 @@
 <?php
-namespace Application\ExpencesBundle\Form;
+namespace Wowo\ExpencesBundle\Form;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\ChoiceField;
 use Symfony\Component\Form\FileField;

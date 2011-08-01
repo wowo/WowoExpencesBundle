@@ -1,5 +1,5 @@
 <?php
-namespace Application\ExpencesBundle\Document;
+namespace Wowo\ExpencesBundle\Document;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**

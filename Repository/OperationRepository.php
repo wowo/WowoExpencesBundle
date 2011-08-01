@@ -1,7 +1,7 @@
 <?php
-namespace Application\ExpencesBundle\Repository;
+namespace Wowo\ExpencesBundle\Repository;
 use Doctrine\ODM\MongoDB\DocumentRepository;
-use Application\ExpencesBundle\Document\User;
+use Wowo\ExpencesBundle\Document\User;
 
 /**
  * OperationRepository 

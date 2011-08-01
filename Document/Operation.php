@@ -1,11 +1,11 @@
 <?php
-namespace Application\ExpencesBundle\Document;
-use Application\ExpencesBundle\Repository\OperationRepository;
+namespace Wowo\ExpencesBundle\Document;
+use Wowo\ExpencesBundle\Repository\OperationRepository;
 
 /**
  * Bank operation 
  * 
- * @mongodb:Document(collection="operations",repositoryClass="Application\ExpencesBundle\Repository\OperationRepository")
+ * @mongodb:Document(collection="operations",repositoryClass="Wowo\ExpencesBundle\Repository\OperationRepository")
  * @package default
  * @version $id$
  * @copyright 

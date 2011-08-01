@@ -1,8 +1,8 @@
 <?php
-namespace Application\ExpencesBundle\Runner;
-use Application\ExpencesBundle\Factories\BankSummaryReader;
-use Application\ExpencesBundle\Importer\IImporter;
-use Application\ExpencesBundle\Importer\Mongo;
+namespace Wowo\ExpencesBundle\Runner;
+use Wowo\ExpencesBundle\Factories\BankSummaryReader;
+use Wowo\ExpencesBundle\Importer\IImporter;
+use Wowo\ExpencesBundle\Importer\Mongo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
