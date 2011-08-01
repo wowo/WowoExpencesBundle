@@ -1,11 +1,12 @@
 <?php
 namespace Wowo\ExpencesBundle\Document;
 use Wowo\ExpencesBundle\Repository\OperationRepository;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * Bank operation 
  * 
- * @mongodb:Document(collection="operations",repositoryClass="Wowo\ExpencesBundle\Repository\OperationRepository")
+ * @MongoDB\Document(collection="operations",repositoryClass="Wowo\ExpencesBundle\Repository\OperationRepository")
  * @package default
  * @version $id$
  * @copyright 
@@ -15,51 +16,51 @@ use Wowo\ExpencesBundle\Repository\OperationRepository;
 class Operation
 {
   /**
-   * @mongodb:Id
+   * @MongoDB\Id
    */
   public $id;
   /**
-   * @mongodb:Date
+   * @MongoDB\Date
    */
   public $dateOperation;
   /**
-   * @mongodb:Date
+   * @MongoDB\Date
    */
   public $datePosting;
   /**
-   * @mongodb:Date
+   * @MongoDB\Date
    */
   public $createdAt;
   /**
-   * @mongodb:String
+   * @MongoDB\String
    */
   public $type;
   /**
-   * @mongodb:String
+   * @MongoDB\String
    */
   public $description;
   /**
-   * @mongodb:Float
+   * @MongoDB\Float
    */
   public $priceOriginalCurrency;
   /**
-   * @mongodb:Float
+   * @MongoDB\Float
    */
   public $pricePln;
   /**
-   * @mongodb:Collection
+   * @MongoDB\Collection
    */
   public $tags;
   /**
-   * @mongodb:ReferenceOne(targetDocument="User")
+   * @MongoDB\ReferenceOne(targetDocument="User")
    */
   public $user;
   /**
-   * @mongodb:String
+   * @MongoDB\String
    */
   public $bank;
   /**
-   * @mongodb:String
+   * @MongoDB\String
    */
   public $summaryType;
 

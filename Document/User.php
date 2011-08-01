@@ -1,11 +1,12 @@
 <?php
 namespace Wowo\ExpencesBundle\Document;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * Use 
  * 
- * @mongodb:Document(collection="users")
+ * @MongoDB\Document(collection="users")
  * @package default
  * @version $id$
  * @copyright 
@@ -15,16 +16,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
   /**
-   * @mongodb:Id
+   * @MongoDB\Id
    */
   public $id;
   /**
-   * @mongodb:String
+   * @MongoDB\String
    */
   public $username;
 
   /**
-   * @mongodb:String
+   * @MongoDB\String
    */
   public $password;
 
