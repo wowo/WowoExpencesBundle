@@ -4,8 +4,10 @@
   <head>
     <title>{% block title %}Expences analyzer{% endblock %}</title>
     <!--    <link href="http://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css"/>-->
-    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
-    <link rel="shortcut icon" href="/css/favicon.png"/>
+    {% stylesheets '@WowoExpencesBundle/Resources/public/css/*' %}
+      <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <link rel="shortcut icon" href="{{ asset('css/favicon.png') }} "/>
     <script type="text/javascript">
       var router = {
         save_tags:  "{{ path('save_tags') }}",
@@ -17,7 +19,7 @@
     {% block main %}
       <div id="top">
         {% block header %}
-          <div id="login">{% render "Guard:Auth:logged" %}</div>
+        <div id="login"><span style="color:red"> is logged here</span></div>
           <div id="logo"><h1>Expences analyzer</h1></div>
         {% endblock %}
       </div>
@@ -39,9 +41,8 @@
       </div>
       <div id="bottom">{% block footer %}Made by: <a href="http://sznapka.pl">Sznapka.pl</a>{% endblock %}</div>
     {% endblock %}
-    <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="/js/flot/jquery.flot.js"></script>
-    <script type="text/javascript" src="/js/graph.js"></script>
-    {% block scripts "" %}
+    {% javascripts '@WowoExpencesBundle/Resources/public/js/*' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
   </body>
 </html>

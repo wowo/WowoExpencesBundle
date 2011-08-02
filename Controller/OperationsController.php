@@ -43,7 +43,7 @@ class OperationsController extends Controller
       $operations = array();
     }
     return $this->render(
-      "Expences:Operations:index.twig.html", 
+      "WowoExpencesBundle:Operations:index.twig.html", 
       array("operations" => $operations, "search" => $search, "tag" => $tag)
     );
   }
@@ -130,7 +130,7 @@ class OperationsController extends Controller
     }
 
     return $this->render(
-      "Expences:Operations:new.twig.html",
+      "WowoExpencesBundle:Operations:new.twig.html",
       array("form" => $form)
     );
   }
@@ -159,7 +159,7 @@ class OperationsController extends Controller
     }
 
     return $this->render(
-      "Expences:Operations:upload.twig.html",
+      "WowoExpencesBundle:Operations:upload.twig.html",
       array("form" => $form)
     );
   }

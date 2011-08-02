@@ -1,31 +1,31 @@
 operations:
   pattern:  /
-  defaults: { _controller: Expences:Operations:index}
+  defaults: { _controller: WowoExpencesBundle:Operations:index}
 
 operation_new:
   pattern:  /new
-  defaults: { _controller: Expences:Operations:new}
+  defaults: { _controller: WowoExpencesBundle:Operations:new}
 
 save_tags:
   pattern: /tags/save
-  defaults: {_controller: Expences:Operations:saveTags}
+  defaults: {_controller: WowoExpencesBundle:Operations:saveTags}
 
 multi_tags:
   pattern: /tags/multi
-  defaults: {_controller: Expences:Operations:multiTags}
+  defaults: {_controller: WowoExpencesBundle:Operations:multiTags}
 
 upload:
   pattern: /upload
-  defaults: {_controller: Expences:Operations:upload}
+  defaults: {_controller: WowoExpencesBundle:Operations:upload}
 
 stats_monthly_graph:
   pattern: /stats/monthly/graph
-  defaults: {_controller: Expences:Stats:monthlyGraph}
+  defaults: {_controller: WowoExpencesBundle:Stats:monthlyGraph}
 
 stats_yearly_graph:
   pattern: /stats/yearly/graph
-  defaults: {_controller: Expences:Stats:yearlyGraph}
+  defaults: {_controller: WowoExpencesBundle:Stats:yearlyGraph}
 
 tags_monthly_graph:
   pattern: /stats/tags/graph
-  defaults: {_controller: Expences:Stats:tagsGraph}
+  defaults: {_controller: WowoExpencesBundle:Stats:tagsGraph}
